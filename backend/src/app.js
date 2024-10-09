@@ -2,6 +2,7 @@ const express = require('express');
 const cors = require('cors');
 const fs = require('fs').promises;
 const path = require('path');
+const { classifyJob } = require('./services/nlpService');
 
 const app = express();
 
@@ -21,8 +22,6 @@ app.get('/api/jobs', async (req, res) => {
     res.status(500).json({ message: 'Error reading jobs' });
   }
 });
-
-// Routes will be added here
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {

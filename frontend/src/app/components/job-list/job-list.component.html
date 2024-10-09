@@ -1,0 +1,30 @@
+<div class="job-list-container">
+  <h2>Job Listings</h2>
+  
+  <div class="filters">
+    <button (click)="filterJobs(true, null, null)">Remote Jobs</button>
+    <button (click)="filterJobs(null, true, null)">Kentucky Jobs</button>
+    <button (click)="filterJobs(null, null, 'Open')">Open Jobs</button>
+    <button (click)="filterJobs(null, null, 'In Progress')">In Progress Jobs</button>
+    <button (click)="filterJobs(null, null, null)">All Jobs</button>
+  </div>
+
+  <table>
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Location</th>
+        <th>Status</th>
+        <th>Remote</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let job of filteredJobs">
+        <td>{{ job.title }}</td>
+        <td>{{ job.location }}</td>
+        <td>{{ job.status }}</td>
+        <td>{{ job.isRemote ? 'Yes' : 'No' }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>

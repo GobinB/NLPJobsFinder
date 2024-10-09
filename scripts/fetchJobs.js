@@ -10,7 +10,7 @@ async function updateJobs() {
     const jobs = await fetchJobsFromGithub();
     
     const classifiedJobs = jobs.map(job => {
-      const { isRemote, isKentucky } = classifyJob(job.description);
+      const { isRemote, isKentucky } = classifyJob(job.description, job.location);
       return { ...job, isRemote, isKentucky };
     });
 
