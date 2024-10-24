@@ -1,0 +1,16 @@
+[
+  {
+    "id": 1,
+    "title": "Software Engineer",
+    "location": "Remote",
+    "status": "Open",
+    "description": "We are looking for a software engineer to work remotely on our exciting projects."
+  },
+  {
+    "id": 2,
+    "title": "Data Analyst",
+    "location": "Kentucky",
+    "status": "In Progress",
+    "description": "Join our team in Louisville as a data analyst to work on cutting-edge analytics projects."
+  }
+]
