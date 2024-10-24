@@ -25,15 +25,19 @@ app.get('/api/jobs', async (req, res) => {
   }
 });
 
-// Read companies from JSON file
+// Read and classify companies from JSON file
 app.get('/api/companies', async (req, res) => {
   try {
     const data = await fs.readFile(path.join(__dirname, '..', 'data', 'companies.json'), 'utf8');
     const companies = JSON.parse(data);
-    res.json(companies);
+    const classifiedCompanies = companies.map(company => ({
+      ...company,
+      jobType: classifyJob(company.description, company.location).jobType
+    }));
+    res.json(classifiedCompanies);
   } catch (error) {
-    console.error('Error reading companies:', error);
-    res.status(500).json({ message: 'Error reading companies' });
+    console.error('Error reading or classifying companies:', error);
+    res.status(500).json({ message: 'Error processing companies data' });
   }
 });
 
@@ -54,7 +58,7 @@ cron.schedule('0 0 * * 0', () => {
   });
 });
 
-const PORT = process.env.PORT || 3000;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
+const port = process.env.PORT || 3000;
+app.listen(port, () => {
+  console.log(`Server running on port ${port}`);
 });

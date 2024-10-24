@@ -9,16 +9,21 @@ async function updateJobs() {
   try {
     const jobs = await fetchJobsFromGithub();
     
+    if (!Array.isArray(jobs) || jobs.length === 0) {
+      throw new Error('No jobs fetched or invalid data received');
+    }
+
     const classifiedJobs = jobs.map(job => {
-      const { isRemote, isKentucky } = classifyJob(job.description, job.location);
-      return { ...job, isRemote, isKentucky };
+      const { isRemote, isKentucky, jobType } = classifyJob(job.description, job.location);
+      return { ...job, isRemote, isKentucky, jobType };
     });
 
     await fs.writeFile(dataPath, JSON.stringify(classifiedJobs, null, 2));
     
-    console.log('Jobs updated successfully');
+    console.log(`Jobs updated successfully. Total jobs: ${classifiedJobs.length}`);
   } catch (error) {
-    console.error('Error updating jobs:', error);
+    console.error('Error updating jobs:', error.message);
+    process.exit(1);
   }
 }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { JobService, Job, Company } from '../../services/job.service';
+import { JobService, Company } from '../../services/job.service';
 
 @Component({
   selector: 'app-job-list',
@@ -10,34 +10,33 @@ import { JobService, Job, Company } from '../../services/job.service';
   styleUrls: ['./job-list.component.css']
 })
 export class JobListComponent implements OnInit {
-  jobs: Job[] = [];
-  filteredJobs: Job[] = [];
   companies: Company[] = [];
+  filteredCompanies: Company[] = [];
 
   constructor(private jobService: JobService) { }
 
   ngOnInit(): void {
-    this.jobService.getJobs().subscribe(
-      (jobs) => {
-        this.jobs = jobs;
-        this.filteredJobs = jobs;
-      },
-      (error) => console.error('Error fetching jobs:', error)
-    );
-
     this.jobService.getCompanies().subscribe(
       (companies) => {
         this.companies = companies;
+        this.filteredCompanies = companies;
       },
       (error) => console.error('Error fetching companies:', error)
     );
   }
 
-  filterJobs(remote: boolean | null, kentucky: boolean | null, status: string | null): void {
-    this.filteredJobs = this.jobs.filter(job => 
-      (remote === null || job.isRemote === remote) &&
-      (kentucky === null || job.isKentucky === kentucky) &&
-      (status === null || job.status === status)
-    );
+  filterCompanies(jobType: string | null): void {
+    if (jobType === null) {
+      this.filteredCompanies = this.companies;
+    } else if (jobType === 'Kentucky') {
+      this.filteredCompanies = this.companies.filter(company => 
+        company.location.toLowerCase().includes('kentucky') || 
+        company.location.toLowerCase().includes('ky') ||
+        company.location.toLowerCase().includes('louisville') ||
+        company.location.toLowerCase().includes('lexington')
+      );
+    } else {
+      this.filteredCompanies = this.companies.filter(company => company.jobType === jobType);
+    }
   }
 }
