@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { JobService, Job } from '../../services/job.service';
+import { JobService, Job, Company } from '../../services/job.service';
 
 @Component({
   selector: 'app-job-list',
@@ -12,6 +12,7 @@ import { JobService, Job } from '../../services/job.service';
 export class JobListComponent implements OnInit {
   jobs: Job[] = [];
   filteredJobs: Job[] = [];
+  companies: Company[] = [];
 
   constructor(private jobService: JobService) { }
 
@@ -22,6 +23,13 @@ export class JobListComponent implements OnInit {
         this.filteredJobs = jobs;
       },
       (error) => console.error('Error fetching jobs:', error)
+    );
+
+    this.jobService.getCompanies().subscribe(
+      (companies) => {
+        this.companies = companies;
+      },
+      (error) => console.error('Error fetching companies:', error)
     );
   }
 

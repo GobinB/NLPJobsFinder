@@ -12,6 +12,12 @@ export interface Job {
   isKentucky?: boolean;
 }
 
+export interface Company {
+  name: string;
+  location: string;
+  description: string;
+}
+
 @Injectable({
   providedIn: 'root'
 })
@@ -22,5 +28,9 @@ export class JobService {
 
   getJobs(): Observable<Job[]> {
     return this.http.get<Job[]>(this.apiUrl);
+  }
+
+  getCompanies(): Observable<Company[]> {
+    return this.http.get<Company[]>('http://localhost:3000/api/companies');
   }
 }
