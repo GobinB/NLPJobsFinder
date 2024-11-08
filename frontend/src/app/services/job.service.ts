@@ -1,49 +1,29 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
-
-export interface Job {
-  id: number;
-  title: string;
-  location: string;
-  status: string;
-  description: string;
-  isRemote?: boolean;
-  isKentucky?: boolean;
-}
+import { HttpClient, HttpParams } from '@angular/common/http';
+import { Observable } from 'rxjs';
 
 export interface Company {
   name: string;
   location: string;
   description: string;
-  jobType?: string;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class JobService {
-  private apiUrl = 'http://localhost:3000/api';
+  private apiUrl = 'http://localhost:3000/api'; // Adjust if your backend URL or port changes
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) { } 
 
-  getJobs(): Observable<Job[]> {
-    return this.http.get<Job[]>(this.apiUrl + '/jobs').pipe(
-      catchError(this.handleError<Job[]>('getJobs', []))
-    );
-  }
-
+  // Fetch companies from /api/jobs
   getCompanies(): Observable<Company[]> {
-    return this.http.get<Company[]>(`${this.apiUrl}/companies`).pipe(
-      catchError(this.handleError<Company[]>('getCompanies', []))
-    );
+    return this.http.get<Company[]>(`${this.apiUrl}/jobs`);
   }
 
-  private handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-      console.error(`${operation} failed: ${error.message}`);
-      return of(result as T);
-    };
+  // Parse location using /parse-location endpoint
+  parseLocation(locationText: string): Observable<any> {
+    const params = new HttpParams().set('text', locationText);
+    return this.http.get<any>(`${this.apiUrl}/parse-location`, { params });
   }
 }
