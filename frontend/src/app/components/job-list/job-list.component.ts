@@ -69,26 +69,34 @@ export class JobListComponent implements OnInit {
   }
 
   addJob(company: Company): void {
-    if (!this.selectedUser) {
-      alert("Please select a user before adding a job.");
+    // Find Autumn's folder
+    const autumnFolder = this.folders.find(f => f.name === 'Autumn');
+    if (!autumnFolder) {
+      console.error("Autumn's folder not found.");
       return;
     }
-
-    const newJob: Job = {
-      id: Date.now(),
-      title: company.name,
-      location: company.location,
-      status: 'active',
-      description: company.description,
-    };
-
-    const folder = this.folders.find(f => f.name === this.selectedUser);
-    if (folder) {
-      folder.jobs.push(newJob);
-      this.selectedUserJobs = folder.jobs;  // Update saved jobs list
-      this.saveFoldersToStorage();  // Persist data in localStorage
+  
+    // Check if the job already exists in Autumn's Jobs before adding
+    const jobExists = autumnFolder.jobs.some(
+      (job) => job.title === company.name && job.location === company.location && job.description === company.description
+    );
+  
+    if (!jobExists) {
+      const newJob: Job = {
+        id: Date.now(),
+        title: company.name,
+        location: company.location,
+        status: 'active',
+        description: company.description,
+      };
+  
+      // Add the job to Autumn's Jobs folder
+      autumnFolder.jobs.push(newJob);
+      this.saveFoldersToStorage();  // Persist changes in localStorage
+    } else {
+      console.log('Job already exists in Autumn\'s Jobs.');
     }
-  }
+  }  
 
   removeJobFromUserFolder(job: Job): void {
     if (this.selectedUser) {
@@ -100,6 +108,16 @@ export class JobListComponent implements OnInit {
       }
     }
   }
+
+  isJobSavedBySelectedUser(company: Company): boolean {
+    if (!this.selectedUser) return false;
+  
+    const folder = this.folders.find(f => f.name === this.selectedUser);
+    return folder ? folder.jobs.some(
+      (job) => job.title === company.name && job.location === company.location && job.description === company.description
+    ) : false;
+  }
+  
 
   private saveFoldersToStorage(): void {
     localStorage.setItem('folders', JSON.stringify(this.folders));
