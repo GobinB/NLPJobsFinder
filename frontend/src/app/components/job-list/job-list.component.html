@@ -6,9 +6,17 @@
     <button (click)="showTab('remote')" [class.active]="activeTab === 'remote'">Remote Jobs</button>
     <button (click)="showTab('kentucky')" [class.active]="activeTab === 'kentucky'">Kentucky Jobs</button>
     <button (click)="showTab('hybrid')" [class.active]="activeTab === 'hybrid'">Hybrid Jobs</button>
-    <button (click)="showTab('autumn')" [class.active]="activeTab === 'autumn'">Autumn's Jobs</button>
+    <button (click)="showTab('saved')" [class.active]="activeTab === 'saved'">Saved Jobs</button>
+
+    <!-- Dropdown for selecting user folder -->
+    <label for="user-select">Select User:</label>
+    <select id="user-select" [(ngModel)]="selectedUser" (change)="onUserSelect($event)">
+      <option value="" disabled>Select User</option>
+      <option *ngFor="let folder of folders" [value]="folder.name">{{ folder.name }}</option>
+    </select>
   </div>
 
+  <!-- All Jobs Tab -->
   <div *ngIf="activeTab === 'all'">
     <table>
       <thead>
@@ -16,7 +24,7 @@
           <th>Company Name</th>
           <th>Job Location(s)</th>
           <th>Interview Description</th>
-          <th>Add/Delete Job</th>
+          <th>Add Job</th>
         </tr>
       </thead>
       <tbody>
@@ -32,9 +40,13 @@
     </table>
   </div>
 
-  <div *ngIf="activeTab === 'autumn'">
-    <h3>Autumn's Jobs</h3>
-    <table>
+  <!-- Saved Jobs Tab -->
+  <div *ngIf="activeTab === 'saved'">
+    <h3>{{ selectedUser }}'s Saved Jobs</h3>
+    <div *ngIf="selectedUserJobs.length === 0" class="no-jobs-message">
+      No jobs saved
+    </div>
+    <table *ngIf="selectedUserJobs.length > 0">
       <thead>
         <tr>
           <th>Job Title</th>
@@ -44,13 +56,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let job of autumnJobs">
+        <tr *ngFor="let job of selectedUserJobs">
           <td>{{ job.title }}</td>
           <td>{{ job.location }}</td>
           <td>{{ job.description }}</td>
-          <td>
-            <button (click)="removeAutumnJob(job)">Delete Job</button>
-          </td>
+          <td><button (click)="removeJobFromUserFolder(job)">Delete Job</button></td>
         </tr>
       </tbody>
     </table>

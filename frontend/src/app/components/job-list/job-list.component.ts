@@ -1,21 +1,37 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { JobService, Company, Job } from '../../services/job.service';
+
+interface Folder {
+  name: string;
+  jobs: Job[];
+}
 
 @Component({
   selector: 'app-job-list',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, FormsModule],
   templateUrl: './job-list.component.html',
   styleUrls: ['./job-list.component.css']
 })
 export class JobListComponent implements OnInit {
   companies: Company[] = [];
   filteredCompanies: Company[] = [];
-  autumnJobs: Job[] = [];
-  activeTab: 'all' | 'remote' | 'kentucky' | 'hybrid' | 'autumn' = 'all';
+  activeTab: 'all' | 'remote' | 'kentucky' | 'hybrid' | 'saved' = 'all';
+  
+  folders: Folder[] = [
+    { name: 'Ahmed', jobs: [] },
+    { name: 'Autumn', jobs: [] },
+    { name: 'Emujin', jobs: [] },
+    { name: 'Gobin', jobs: [] },
+    { name: 'Professor', jobs: [] }
+  ];
 
-  constructor(private jobService: JobService) { }
+  selectedUser: string | null = null;
+  selectedUserJobs: Job[] = [];
+
+  constructor(private jobService: JobService) {}
 
   ngOnInit(): void {
     this.jobService.getCompanies().subscribe(
@@ -25,27 +41,39 @@ export class JobListComponent implements OnInit {
       },
       (error) => console.error('Error fetching companies:', error)
     );
+
+    // Load saved folder jobs from local storage
+    this.loadFoldersFromStorage();
   }
 
-  showTab(tab: 'all' | 'remote' | 'kentucky' | 'hybrid' | 'autumn'): void {
+  onUserSelect(event: Event): void {
+    const selectElement = event.target as HTMLSelectElement;
+    this.selectedUser = selectElement.value;
+    this.loadSelectedUserJobs();
+  }
+
+  showTab(tab: 'all' | 'remote' | 'kentucky' | 'hybrid' | 'saved'): void {
     this.activeTab = tab;
-    if (tab === 'all') {
+    if (tab === 'saved') {
+      this.loadSelectedUserJobs();
+    } else if (tab === 'all') {
       this.filteredCompanies = this.companies;
-    } else if (tab === 'remote') {
-      this.filteredCompanies = this.companies.filter(company => company.jobType === 'Remote');
-    } else if (tab === 'kentucky') {
-      this.filteredCompanies = this.companies.filter(company => 
-        company.location.toLowerCase().includes('kentucky') || 
-        company.location.toLowerCase().includes('ky') ||
-        company.location.toLowerCase().includes('louisville') ||
-        company.location.toLowerCase().includes('lexington')
-      );
-    } else if (tab === 'hybrid') {
-      this.filteredCompanies = this.companies.filter(company => company.jobType === 'Hybrid');
+    }
+  }
+
+  loadSelectedUserJobs(): void {
+    if (this.selectedUser) {
+      const folder = this.folders.find(f => f.name === this.selectedUser);
+      this.selectedUserJobs = folder ? folder.jobs : [];
     }
   }
 
   addJob(company: Company): void {
+    if (!this.selectedUser) {
+      alert("Please select a user before adding a job.");
+      return;
+    }
+
     const newJob: Job = {
       id: Date.now(),
       title: company.name,
@@ -53,22 +81,34 @@ export class JobListComponent implements OnInit {
       status: 'active',
       description: company.description,
     };
-    
-    // Add the job to Autumn's Jobs tab without making an API call
-    this.autumnJobs.push(newJob);
+
+    const folder = this.folders.find(f => f.name === this.selectedUser);
+    if (folder) {
+      folder.jobs.push(newJob);
+      this.selectedUserJobs = folder.jobs;  // Update saved jobs list
+      this.saveFoldersToStorage();  // Persist data in localStorage
+    }
   }
 
-  deleteJob(company: Company): void {
-    this.jobService.deleteJob(company.id).subscribe(
-      () => {
-        this.companies = this.companies.filter(c => c.id !== company.id);
-        this.filteredCompanies = this.filteredCompanies.filter(c => c.id !== company.id);
-      },
-      (error: any) => console.error('Error deleting job:', error)
-    );
+  removeJobFromUserFolder(job: Job): void {
+    if (this.selectedUser) {
+      const folder = this.folders.find(f => f.name === this.selectedUser);
+      if (folder) {
+        folder.jobs = folder.jobs.filter(j => j.id !== job.id);
+        this.selectedUserJobs = folder.jobs; // Update the displayed jobs list
+        this.saveFoldersToStorage();  // Persist data in localStorage
+      }
+    }
   }
 
-  removeAutumnJob(job: Job): void {
-    this.autumnJobs = this.autumnJobs.filter(j => j.id !== job.id);
+  private saveFoldersToStorage(): void {
+    localStorage.setItem('folders', JSON.stringify(this.folders));
+  }
+
+  private loadFoldersFromStorage(): void {
+    const savedFolders = localStorage.getItem('folders');
+    if (savedFolders) {
+      this.folders = JSON.parse(savedFolders);
+    }
   }
 }
