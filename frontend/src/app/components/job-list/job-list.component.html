@@ -1,27 +1,148 @@
 <div class="job-list-container">
   <h2>Companies</h2>
-  
-  <div class="filters">
-    <button (click)="filterCompanies('Remote')">Remote Jobs</button>
-    <button (click)="filterCompanies('Kentucky')">Kentucky Jobs</button>
-    <button (click)="filterCompanies('Hybrid')">Hybrid Jobs</button>
-    <button (click)="filterCompanies(null)">All Jobs</button>
+
+  <div class="tabs">
+    <button (click)="showTab('all')" [class.active]="activeTab === 'all'">All Jobs</button>
+    <button (click)="showTab('remote')" [class.active]="activeTab === 'remote'">Remote Jobs</button>
+    <button (click)="showTab('kentucky')" [class.active]="activeTab === 'kentucky'">Kentucky Jobs</button>
+    <button (click)="showTab('hybrid')" [class.active]="activeTab === 'hybrid'">Hybrid Jobs</button>
+    <button (click)="showTab('saved')" [class.active]="activeTab === 'saved'">Saved Jobs</button>
+
+    <!-- Dropdown for selecting user folder -->
+    <label for="user-select">Select User:</label>
+    <select id="user-select" [(ngModel)]="selectedUser" (change)="onUserSelect($event)">
+      <option value="" disabled>Select User</option>
+      <option *ngFor="let folder of folders" [value]="folder.name">{{ folder.name }}</option>
+    </select>
   </div>
 
-  <table>
-    <thead>
-      <tr>
-        <th>Company Name</th>
-        <th>Job Location(s)</th>
-        <th>Interview Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let company of filteredCompanies">
-        <td>{{ company.name }}</td>
-        <td>{{ company.location }}</td>
-        <td>{{ company.description }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <!-- All Jobs Tab -->
+  <div *ngIf="activeTab === 'all'">
+    <h3>All Jobs</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Job Location(s)</th>
+          <th>Interview Description</th>
+          <th>Add Job</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of filteredCompanies">
+          <td>{{ company.name }}</td>
+          <td>{{ company.location }}</td>
+          <td>{{ company.description }}</td>
+          <td>
+            <button (click)="addJob(company)">Add Job</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Remote Jobs Tab -->
+  <div *ngIf="activeTab === 'remote'">
+    <h3>Remote Jobs</h3>
+    <table *ngIf="filteredCompanies.length > 0">
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Job Location(s)</th>
+          <th>Interview Description</th>
+          <th>Add Job</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of filteredCompanies">
+          <td>{{ company.name }}</td>
+          <td>{{ company.location }}</td>
+          <td>{{ company.description }}</td>
+          <td>
+            <button (click)="addJob(company)">Add Job</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="filteredCompanies.length === 0">No remote jobs listed</p>
+  </div>
+
+  <!-- Kentucky Jobs Tab -->
+  <div *ngIf="activeTab === 'kentucky'">
+    <h3>Kentucky Jobs</h3>
+    <table *ngIf="filteredCompanies.length > 0">
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Job Location(s)</th>
+          <th>Interview Description</th>
+          <th>Add Job</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of filteredCompanies">
+          <td>{{ company.name }}</td>
+          <td>{{ company.location }}</td>
+          <td>{{ company.description }}</td>
+          <td>
+            <button (click)="addJob(company)">Add Job</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="filteredCompanies.length === 0">No Kentucky jobs listed</p>
+  </div>
+
+  <!-- Hybrid Jobs Tab -->
+  <div *ngIf="activeTab === 'hybrid'">
+    <h3>Hybrid Jobs</h3>
+    <table *ngIf="filteredCompanies.length > 0">
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Job Location(s)</th>
+          <th>Interview Description</th>
+          <th>Add Job</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of filteredCompanies">
+          <td>{{ company.name }}</td>
+          <td>{{ company.location }}</td>
+          <td>{{ company.description }}</td>
+          <td>
+            <button (click)="addJob(company)">Add Job</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="filteredCompanies.length === 0">No hybrid jobs listed</p>
+  </div>
+
+  <!-- Saved Jobs Tab -->
+  <div *ngIf="activeTab === 'saved'">
+    <h3 *ngIf="selectedUser; else noUser">{{ selectedUser }}'s Saved Jobs</h3>
+    <ng-template #noUser><h3>Please select a user</h3></ng-template>
+    <div *ngIf="selectedUser && selectedUserJobs.length === 0" class="no-jobs-message">
+      No jobs saved
+    </div>
+    <table *ngIf="selectedUser && selectedUserJobs.length > 0">
+      <thead>
+        <tr>
+          <th>Job Title</th>
+          <th>Location</th>
+          <th>Description</th>
+          <th>Delete Job</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let job of selectedUserJobs">
+          <td>{{ job.title }}</td>
+          <td>{{ job.location }}</td>
+          <td>{{ job.description }}</td>
+          <td><button (click)="removeJobFromUserFolder(job)">Delete Job</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 </div>
