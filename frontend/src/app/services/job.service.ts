@@ -14,6 +14,7 @@ export interface Job {
 }
 
 export interface Company {
+  id: number;
   name: string;
   location: string;
   description: string;
@@ -29,7 +30,7 @@ export class JobService {
   constructor(private http: HttpClient) { }
 
   getJobs(): Observable<Job[]> {
-    return this.http.get<Job[]>(this.apiUrl + '/jobs').pipe(
+    return this.http.get<Job[]>(`${this.apiUrl}/jobs`).pipe(
       catchError(this.handleError<Job[]>('getJobs', []))
     );
   }
@@ -37,6 +38,18 @@ export class JobService {
   getCompanies(): Observable<Company[]> {
     return this.http.get<Company[]>(`${this.apiUrl}/companies`).pipe(
       catchError(this.handleError<Company[]>('getCompanies', []))
+    );
+  }
+
+  addJob(job: Job): Observable<Job> {
+    return this.http.post<Job>(`${this.apiUrl}/jobs`, job).pipe(
+      catchError(this.handleError<Job>('addJob'))
+    );
+  }
+
+  deleteJob(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/jobs/${id}`).pipe(
+      catchError(this.handleError<void>('deleteJob'))
     );
   }
 
