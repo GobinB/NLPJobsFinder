@@ -19,7 +19,7 @@
   <!-- All Jobs Tab -->
   <div *ngIf="activeTab === 'all'">
     <h3>All Jobs</h3>
-    <table>
+    <table *ngIf="filteredCompanies.length > 0">
       <thead>
         <tr>
           <th>Company Name</th>
@@ -35,10 +35,12 @@
           <td>{{ company.description }}</td>
           <td>
             <button (click)="addJob(company)">Add Job</button>
+            <span *ngIf="isJobSavedBySelectedUser(company)">✔️</span>
           </td>
         </tr>
       </tbody>
     </table>
+    <p *ngIf="filteredCompanies.length === 0">No jobs listed</p>
   </div>
 
   <!-- Remote Jobs Tab -->
@@ -60,6 +62,7 @@
           <td>{{ company.description }}</td>
           <td>
             <button (click)="addJob(company)">Add Job</button>
+            <span *ngIf="isJobSavedBySelectedUser(company)">✔️</span>
           </td>
         </tr>
       </tbody>
@@ -86,6 +89,7 @@
           <td>{{ company.description }}</td>
           <td>
             <button (click)="addJob(company)">Add Job</button>
+            <span *ngIf="isJobSavedBySelectedUser(company)">✔️</span>
           </td>
         </tr>
       </tbody>
@@ -112,6 +116,7 @@
           <td>{{ company.description }}</td>
           <td>
             <button (click)="addJob(company)">Add Job</button>
+            <span *ngIf="isJobSavedBySelectedUser(company)">✔️</span>
           </td>
         </tr>
       </tbody>

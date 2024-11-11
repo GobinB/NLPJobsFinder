@@ -121,9 +121,17 @@ export class JobListComponent implements OnInit {
 
     const folder = this.folders.find(f => f.name === this.selectedUser);
     if (folder) {
-      folder.jobs.push(newJob);
-      this.selectedUserJobs = folder.jobs;  // Update saved jobs list
-      this.saveFoldersToStorage();  // Persist data in localStorage
+      const jobExists = folder.jobs.some(
+        (job) => job.title === company.name && job.location === company.location && job.description === company.description
+      );
+
+      if (!jobExists) {
+        folder.jobs.push(newJob);
+        this.selectedUserJobs = folder.jobs;  // Update saved jobs list
+        this.saveFoldersToStorage();  // Persist data in localStorage
+      } else {
+        console.log('Job already exists in the selected user\'s list.');
+      }
     }
   }
 
@@ -136,6 +144,22 @@ export class JobListComponent implements OnInit {
         this.saveFoldersToStorage();  // Persist data in localStorage
       }
     }
+  }
+
+  isJobSavedBySelectedUser(company: Company): boolean {
+    if (!this.selectedUser) {
+      return false;
+    }
+
+    const folder = this.folders.find(f => f.name === this.selectedUser);
+    if (!folder) {
+      console.error(`No folder found for user: ${this.selectedUser}`);
+      return false;
+    }
+
+    return folder.jobs.some(
+      (job) => job.title === company.name && job.location === company.location && job.description === company.description
+    );
   }
 
   private saveFoldersToStorage(): void {

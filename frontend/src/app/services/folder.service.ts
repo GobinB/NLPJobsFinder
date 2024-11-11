@@ -6,12 +6,12 @@ export interface Job {
   location: string;
   status: string;
   description: string;
-  type?: string; 
+  type?: string; // Optional property for job type (e.g., 'Hybrid')
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class FolderService {
-  // This service could expand to interact with backend if required
+  // This service could expand to interact with a backend if required
 }
