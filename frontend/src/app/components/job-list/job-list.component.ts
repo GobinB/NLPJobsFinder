@@ -54,19 +54,24 @@ export class JobListComponent implements OnInit {
     const location = company.location.toLowerCase();
     const description = company.description.toLowerCase();
     
-    if (location.includes('remote')) {
-      return 'Remote';
-    } else if (
-      location.includes('kentucky') ||
-      location.includes('ky') ||
-      location.includes('louisville') ||
-      location.includes('lexington')
-    ) {
+    // Check for Kentucky locations with word boundaries
+    const kentuckyPatterns = [
+      /\bky\b/,                    
+      /\bkentucky\b/,            
+      /\blexington,\s*ky\b/,     
+      /\blouisville,\s*ky\b/,     
+      /\belizabethtown,\s*ky\b/,  
+      /\bbowling green,\s*ky\b/   
+    ];
+
+    if (kentuckyPatterns.some(pattern => pattern.test(location))) {
       return 'Kentucky';
+    } else if (location.includes('remote')) {
+      return 'Remote';
     } else if (description.includes('hybrid')) {
       return 'Hybrid';
     }
-    return 'Other';  // Default if no match
+    return 'Other';
   }
 
   onUserSelect(event: Event): void {
