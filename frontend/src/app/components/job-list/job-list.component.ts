@@ -25,18 +25,20 @@ export class JobListComponent implements OnInit {
     );
   }
 
-  filterCompanies(jobType: string | null): void {
-    if (jobType === null) {
+  filterCompanies(filterType: string | null): void {
+    if (filterType === null) {
       this.filteredCompanies = this.companies;
-    } else if (jobType === 'Kentucky') {
+    } else if (filterType === 'Kentucky') {
+      // Match "kentucky" or standalone "ky" as whole words only
       this.filteredCompanies = this.companies.filter(company => 
-        company.location.toLowerCase().includes('kentucky') || 
-        company.location.toLowerCase().includes('ky') ||
-        company.location.toLowerCase().includes('louisville') ||
-        company.location.toLowerCase().includes('lexington')
+        /\b(kentucky|ky)\b/i.test(company.location) || 
+        /\b(louisville|lexington)\b/i.test(company.location)
       );
+    } else if (filterType === 'USA') {
+      this.filteredCompanies = this.companies.filter(company => company.region === 'USA');
     } else {
-      this.filteredCompanies = this.companies.filter(company => company.jobType === jobType);
+      this.filteredCompanies = this.companies.filter(company => company.jobType === filterType);
     }
   }
+  
 }

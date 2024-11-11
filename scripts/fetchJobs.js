@@ -1,30 +1,30 @@
 const { fetchJobsFromGithub } = require('../backend/src/utils/githubFetcher');
-const { classifyJob } = require('../backend/src/services/nlpService');
+const { classifyCompany } = require('../backend/src/services/nlpService');
 const fs = require('fs').promises;
 const path = require('path');
 
-const dataPath = path.join(__dirname, '..', 'backend', 'data', 'jobs.json');
+const dataPath = path.join(__dirname, '..', 'backend', 'data', 'companies.json');
 
-async function updateJobs() {
+async function updateCompanies() {
   try {
-    const jobs = await fetchJobsFromGithub();
-    
-    if (!Array.isArray(jobs) || jobs.length === 0) {
-      throw new Error('No jobs fetched or invalid data received');
+    const companies = await fetchJobsFromGithub();
+
+    if (!Array.isArray(companies) || companies.length === 0) {
+      throw new Error('No companies fetched or invalid data received');
     }
 
-    const classifiedJobs = jobs.map(job => {
-      const { isRemote, isKentucky, jobType } = classifyJob(job.description, job.location);
-      return { ...job, isRemote, isKentucky, jobType };
+    const classifiedCompanies = companies.map(company => {
+      const { jobType, region, isRemote, isKentucky } = classifyCompany(company.description, company.location);
+      return { ...company, jobType, region, isRemote, isKentucky };
     });
 
-    await fs.writeFile(dataPath, JSON.stringify(classifiedJobs, null, 2));
-    
-    console.log(`Jobs updated successfully. Total jobs: ${classifiedJobs.length}`);
+    await fs.writeFile(dataPath, JSON.stringify(classifiedCompanies, null, 2));
+
+    console.log(`Companies updated successfully. Total companies: ${classifiedCompanies.length}`);
   } catch (error) {
-    console.error('Error updating jobs:', error.message);
+    console.error('Error updating companies:', error.message);
     process.exit(1);
   }
 }
 
-updateJobs();
+updateCompanies();
