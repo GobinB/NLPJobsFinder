@@ -36,40 +36,72 @@ export class JobListComponent implements OnInit {
   ngOnInit(): void {
     this.jobService.getCompanies().subscribe(
       (companies) => {
-        this.companies = companies;
-        this.filteredCompanies = companies;
+        this.companies = companies.map(company => ({
+          ...company,
+          jobType: this.getJobType(company)  // Assign job type based on location or description
+        }));
+        this.filteredCompanies = this.companies;  // Start with all companies
       },
       (error) => console.error('Error fetching companies:', error)
     );
 
+    // Load saved folder jobs from local storage
     this.loadFoldersFromStorage();
+  }
+
+  // Function to assign job types based on description and location keywords
+  getJobType(company: Company): string {
+    const location = company.location.toLowerCase();
+    const description = company.description.toLowerCase();
+    
+    if (location.includes('remote')) {
+      return 'Remote';
+    } else if (
+      location.includes('kentucky') ||
+      location.includes('ky') ||
+      location.includes('louisville') ||
+      location.includes('lexington')
+    ) {
+      return 'Kentucky';
+    } else if (description.includes('hybrid')) {
+      return 'Hybrid';
+    }
+    return 'Other';  // Default if no match
   }
 
   onUserSelect(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     this.selectedUser = selectElement.value;
-    console.log('Selected User:', this.selectedUser);
     this.loadSelectedUserJobs();
   }
 
   showTab(tab: 'all' | 'remote' | 'kentucky' | 'hybrid' | 'saved'): void {
     this.activeTab = tab;
-    if (tab === 'saved') {
-      this.loadSelectedUserJobs();
-    } else if (tab === 'all') {
-      this.filteredCompanies = this.companies;
+    switch (tab) {
+      case 'all':
+        this.filteredCompanies = this.companies;
+        break;
+      case 'remote':
+        this.filteredCompanies = this.companies.filter(company => company.jobType === 'Remote');
+        break;
+      case 'kentucky':
+        this.filteredCompanies = this.companies.filter(company => company.jobType === 'Kentucky');
+        break;
+      case 'hybrid':
+        this.filteredCompanies = this.companies.filter(company => company.jobType === 'Hybrid');
+        break;
+      case 'saved':
+        this.loadSelectedUserJobs();
+        break;
     }
   }
 
   loadSelectedUserJobs(): void {
     if (this.selectedUser) {
       const folder = this.folders.find(f => f.name === this.selectedUser);
-      if (folder) {
-        console.log(`Loading jobs for ${this.selectedUser}`);
-      } else {
-        console.error(`No folder found for user: ${this.selectedUser}`);
-      }
       this.selectedUserJobs = folder ? folder.jobs : [];
+    } else {
+      this.selectedUserJobs = []; // Reset jobs if no user is selected
     }
   }
 
@@ -79,6 +111,14 @@ export class JobListComponent implements OnInit {
       return;
     }
 
+    const newJob: Job = {
+      id: Date.now(),
+      title: company.name,
+      location: company.location,
+      status: 'active',
+      description: company.description,
+    };
+
     const folder = this.folders.find(f => f.name === this.selectedUser);
     if (folder) {
       const jobExists = folder.jobs.some(
@@ -86,23 +126,12 @@ export class JobListComponent implements OnInit {
       );
 
       if (!jobExists) {
-        const newJob: Job = {
-          id: Date.now(),
-          title: company.name,
-          location: company.location,
-          status: 'active',
-          description: company.description,
-        };
-
         folder.jobs.push(newJob);
-        this.selectedUserJobs = folder.jobs;
-        console.log(`Added job to ${this.selectedUser}'s folder`, newJob);
-        this.saveFoldersToStorage();
+        this.selectedUserJobs = folder.jobs;  // Update saved jobs list
+        this.saveFoldersToStorage();  // Persist data in localStorage
       } else {
         console.log('Job already exists in the selected user\'s list.');
       }
-    } else {
-      console.error(`Folder not found for user: ${this.selectedUser}`);
     }
   }
 
@@ -111,8 +140,8 @@ export class JobListComponent implements OnInit {
       const folder = this.folders.find(f => f.name === this.selectedUser);
       if (folder) {
         folder.jobs = folder.jobs.filter(j => j.id !== job.id);
-        this.selectedUserJobs = folder.jobs;
-        this.saveFoldersToStorage();
+        this.selectedUserJobs = folder.jobs; // Update the displayed jobs list
+        this.saveFoldersToStorage();  // Persist data in localStorage
       }
     }
   }

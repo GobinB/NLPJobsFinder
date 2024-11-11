@@ -1,34 +1,68 @@
 <div class="folder-list-container">
-    <h2>User Folders</h2>
-  
-    <div class="filters">
-      <!-- Dropdown to select a folder -->
-      <label for="folder-select">Select Folder:</label>
-      <select id="folder-select" (change)="onFolderSelect($event)">
-        <option *ngFor="let folder of folders" [value]="folder.name">{{ folder.name }}</option>
-      </select>
-    </div>
-  
-    <div *ngIf="selectedFolder">
-      <h3>{{ selectedFolder }}'s Jobs</h3>
-      <table>
-        <thead>
-          <tr>
-            <th>Job Title</th>
-            <th>Location</th>
-            <th>Description</th>
-            <th>Delete Job</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let job of selectedFolderJobs">
-            <td>{{ job.title }}</td>
-            <td>{{ job.location }}</td>
-            <td>{{ job.description }}</td>
-            <td><button (click)="removeJobFromFolder(job)">Delete Job</button></td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
+  <h2>User Folders</h2>
+
+  <div class="filters">
+    <!-- Dropdown to select a folder -->
+    <label for="folder-select">Select Folder:</label>
+    <select id="folder-select" (change)="onFolderSelect($event)">
+      <option value="" disabled selected>Select Folder</option>
+      <option *ngFor="let folder of folders" [value]="folder.name">{{ folder.name }}</option>
+    </select>
   </div>
-  
+
+  <!-- Display a message if no folder is selected -->
+  <div *ngIf="!selectedFolder">
+    <p class="no-folder-message">Please select a folder to view jobs.</p>
+  </div>
+
+  <!-- Display selected folder's jobs -->
+  <div *ngIf="selectedFolder && selectedFolderJobs.length === 0" class="no-jobs-message">
+    <p>No jobs saved</p>
+  </div>
+
+  <div *ngIf="selectedFolder && selectedFolderJobs.length > 0">
+    <h3>{{ selectedFolder }}'s Jobs</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Job Title</th>
+          <th>Location</th>
+          <th>Description</th>
+          <th>Delete Job</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let job of selectedFolderJobs">
+          <td>{{ job.title }}</td>
+          <td>{{ job.location }}</td>
+          <td>{{ job.description }}</td>
+          <td><button (click)="removeJobFromFolder(job)">Delete Job</button></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Hybrid Jobs Section -->
+  <div *ngIf="activeTab === 'hybrid'">
+    <h3>Hybrid Jobs</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Job Title</th>
+          <th>Location</th>
+          <th>Description</th>
+          <th>Add Job</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let job of hybridJobs">
+          <td>{{ job.title }}</td>
+          <td>{{ job.location }}</td>
+          <td>{{ job.description }}</td>
+          <td><button (click)="addJobToFolder(selectedFolder, job)">Add to Folder</button></td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="hybridJobs.length === 0">No hybrid jobs listed</p>
+  </div>
+</div>

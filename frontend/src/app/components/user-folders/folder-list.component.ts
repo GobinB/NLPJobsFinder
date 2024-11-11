@@ -19,13 +19,17 @@ export class FolderListComponent implements OnInit {
     { name: 'Gobin', jobs: [] },
     { name: 'Professor', jobs: [] }
   ];
+  
   selectedFolder: string | null = null;
   selectedFolderJobs: Job[] = [];
+  hybridJobs: Job[] = []; // List of hybrid jobs
+  activeTab: 'folder' | 'hybrid' = 'folder'; // Controls the active view
 
   constructor(private folderService: FolderService) {}
 
   ngOnInit(): void {
     this.loadJobsFromStorage();
+    this.filterHybridJobs(); // Populate hybrid jobs initially
   }
 
   onFolderSelect(event: Event): void {
@@ -39,12 +43,27 @@ export class FolderListComponent implements OnInit {
   selectFolder(folderName: string): void {
     this.selectedFolder = folderName;
     this.selectedFolderJobs = this.getJobsForFolder(folderName);
+    this.activeTab = 'folder'; // Switch to folder view
   }
 
-  addJobToFolder(folderName: string, job: Job): void {
+  // Filter jobs that are of type 'Hybrid'
+  filterHybridJobs(): void {
+    this.hybridJobs = this.folders
+      .flatMap(folder => folder.jobs)
+      .filter(job => job.type === 'Hybrid');
+  }
+
+  showHybridJobs(): void {
+    this.activeTab = 'hybrid'; // Switch to hybrid jobs view
+  }
+
+  addJobToFolder(folderName: string | null, job: Job): void {
+    if (!folderName) return;
+
     const folder = this.folders.find(f => f.name === folderName);
     if (folder) {
       folder.jobs.push(job);
+      this.selectedFolderJobs = folder.jobs; // Update current folder jobs
       this.saveJobsToStorage();
     }
   }

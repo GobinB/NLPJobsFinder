@@ -18,7 +18,8 @@
 
   <!-- All Jobs Tab -->
   <div *ngIf="activeTab === 'all'">
-    <table>
+    <h3>All Jobs</h3>
+    <table *ngIf="filteredCompanies.length > 0">
       <thead>
         <tr>
           <th>Company Name</th>
@@ -39,15 +40,98 @@
         </tr>
       </tbody>
     </table>
+    <p *ngIf="filteredCompanies.length === 0">No jobs listed</p>
+  </div>
+
+  <!-- Remote Jobs Tab -->
+  <div *ngIf="activeTab === 'remote'">
+    <h3>Remote Jobs</h3>
+    <table *ngIf="filteredCompanies.length > 0">
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Job Location(s)</th>
+          <th>Interview Description</th>
+          <th>Add Job</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of filteredCompanies">
+          <td>{{ company.name }}</td>
+          <td>{{ company.location }}</td>
+          <td>{{ company.description }}</td>
+          <td>
+            <button (click)="addJob(company)">Add Job</button>
+            <span *ngIf="isJobSavedBySelectedUser(company)">✔️</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="filteredCompanies.length === 0">No remote jobs listed</p>
+  </div>
+
+  <!-- Kentucky Jobs Tab -->
+  <div *ngIf="activeTab === 'kentucky'">
+    <h3>Kentucky Jobs</h3>
+    <table *ngIf="filteredCompanies.length > 0">
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Job Location(s)</th>
+          <th>Interview Description</th>
+          <th>Add Job</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of filteredCompanies">
+          <td>{{ company.name }}</td>
+          <td>{{ company.location }}</td>
+          <td>{{ company.description }}</td>
+          <td>
+            <button (click)="addJob(company)">Add Job</button>
+            <span *ngIf="isJobSavedBySelectedUser(company)">✔️</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="filteredCompanies.length === 0">No Kentucky jobs listed</p>
+  </div>
+
+  <!-- Hybrid Jobs Tab -->
+  <div *ngIf="activeTab === 'hybrid'">
+    <h3>Hybrid Jobs</h3>
+    <table *ngIf="filteredCompanies.length > 0">
+      <thead>
+        <tr>
+          <th>Company Name</th>
+          <th>Job Location(s)</th>
+          <th>Interview Description</th>
+          <th>Add Job</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let company of filteredCompanies">
+          <td>{{ company.name }}</td>
+          <td>{{ company.location }}</td>
+          <td>{{ company.description }}</td>
+          <td>
+            <button (click)="addJob(company)">Add Job</button>
+            <span *ngIf="isJobSavedBySelectedUser(company)">✔️</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <p *ngIf="filteredCompanies.length === 0">No hybrid jobs listed</p>
   </div>
 
   <!-- Saved Jobs Tab -->
   <div *ngIf="activeTab === 'saved'">
-    <h3>{{ selectedUser }}'s Saved Jobs</h3>
-    <div *ngIf="selectedUserJobs.length === 0" class="no-jobs-message">
+    <h3 *ngIf="selectedUser; else noUser">{{ selectedUser }}'s Saved Jobs</h3>
+    <ng-template #noUser><h3>Please select a user</h3></ng-template>
+    <div *ngIf="selectedUser && selectedUserJobs.length === 0" class="no-jobs-message">
       No jobs saved
     </div>
-    <table *ngIf="selectedUserJobs.length > 0">
+    <table *ngIf="selectedUser && selectedUserJobs.length > 0">
       <thead>
         <tr>
           <th>Job Title</th>
