@@ -42,13 +42,13 @@ export class JobListComponent implements OnInit {
       (error) => console.error('Error fetching companies:', error)
     );
 
-    // Load saved folder jobs from local storage
     this.loadFoldersFromStorage();
   }
 
   onUserSelect(event: Event): void {
     const selectElement = event.target as HTMLSelectElement;
     this.selectedUser = selectElement.value;
+    console.log('Selected User:', this.selectedUser);
     this.loadSelectedUserJobs();
   }
 
@@ -64,60 +64,74 @@ export class JobListComponent implements OnInit {
   loadSelectedUserJobs(): void {
     if (this.selectedUser) {
       const folder = this.folders.find(f => f.name === this.selectedUser);
+      if (folder) {
+        console.log(`Loading jobs for ${this.selectedUser}`);
+      } else {
+        console.error(`No folder found for user: ${this.selectedUser}`);
+      }
       this.selectedUserJobs = folder ? folder.jobs : [];
     }
   }
 
   addJob(company: Company): void {
-    // Find Autumn's folder
-    const autumnFolder = this.folders.find(f => f.name === 'Autumn');
-    if (!autumnFolder) {
-      console.error("Autumn's folder not found.");
+    if (!this.selectedUser) {
+      alert("Please select a user before adding a job.");
       return;
     }
-  
-    // Check if the job already exists in Autumn's Jobs before adding
-    const jobExists = autumnFolder.jobs.some(
-      (job) => job.title === company.name && job.location === company.location && job.description === company.description
-    );
-  
-    if (!jobExists) {
-      const newJob: Job = {
-        id: Date.now(),
-        title: company.name,
-        location: company.location,
-        status: 'active',
-        description: company.description,
-      };
-  
-      // Add the job to Autumn's Jobs folder
-      autumnFolder.jobs.push(newJob);
-      this.saveFoldersToStorage();  // Persist changes in localStorage
+
+    const folder = this.folders.find(f => f.name === this.selectedUser);
+    if (folder) {
+      const jobExists = folder.jobs.some(
+        (job) => job.title === company.name && job.location === company.location && job.description === company.description
+      );
+
+      if (!jobExists) {
+        const newJob: Job = {
+          id: Date.now(),
+          title: company.name,
+          location: company.location,
+          status: 'active',
+          description: company.description,
+        };
+
+        folder.jobs.push(newJob);
+        this.selectedUserJobs = folder.jobs;
+        console.log(`Added job to ${this.selectedUser}'s folder`, newJob);
+        this.saveFoldersToStorage();
+      } else {
+        console.log('Job already exists in the selected user\'s list.');
+      }
     } else {
-      console.log('Job already exists in Autumn\'s Jobs.');
+      console.error(`Folder not found for user: ${this.selectedUser}`);
     }
-  }  
+  }
 
   removeJobFromUserFolder(job: Job): void {
     if (this.selectedUser) {
       const folder = this.folders.find(f => f.name === this.selectedUser);
       if (folder) {
         folder.jobs = folder.jobs.filter(j => j.id !== job.id);
-        this.selectedUserJobs = folder.jobs; // Update the displayed jobs list
-        this.saveFoldersToStorage();  // Persist data in localStorage
+        this.selectedUserJobs = folder.jobs;
+        this.saveFoldersToStorage();
       }
     }
   }
 
   isJobSavedBySelectedUser(company: Company): boolean {
-    if (!this.selectedUser) return false;
-  
+    if (!this.selectedUser) {
+      return false;
+    }
+
     const folder = this.folders.find(f => f.name === this.selectedUser);
-    return folder ? folder.jobs.some(
+    if (!folder) {
+      console.error(`No folder found for user: ${this.selectedUser}`);
+      return false;
+    }
+
+    return folder.jobs.some(
       (job) => job.title === company.name && job.location === company.location && job.description === company.description
-    ) : false;
+    );
   }
-  
 
   private saveFoldersToStorage(): void {
     localStorage.setItem('folders', JSON.stringify(this.folders));
