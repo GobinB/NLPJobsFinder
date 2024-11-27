@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { JobService } from '../../services/job.service';
 
@@ -167,6 +167,7 @@ import { JobService } from '../../services/job.service';
   `]
 })
 export class ResumeUploadComponent {
+  @ViewChild('fileInput') fileInput!: ElementRef;
   selectedFile: File | null = null;
   loading = false;
   error = '';
@@ -206,6 +207,10 @@ export class ResumeUploadComponent {
     this.selectedFile = null;
     this.success = false;
     this.error = '';
+    // Reset the file input value
+    if (this.fileInput && this.fileInput.nativeElement) {
+      this.fileInput.nativeElement.value = '';
+    }
     this.jobService.resetFilters();
   }
 } 
