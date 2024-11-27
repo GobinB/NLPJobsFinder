@@ -5,6 +5,8 @@ const path = require('path');
 const { classifyJob } = require('./services/nlpService');
 const cron = require('node-cron');
 const { exec } = require('child_process');
+const multer = require('multer');
+const { parseResume } = require('./services/resumeParserService');
 
 const app = express();
 
@@ -56,6 +58,34 @@ cron.schedule('0 0 * * 0', () => {
     }
     console.log(`Company data updated: ${stdout}`);
   });
+});
+
+const upload = multer({
+  storage: multer.memoryStorage(),
+  limits: { fileSize: 10 * 1024 * 1024 } // 10MB limit
+});
+
+app.post('/api/resume-parse', upload.single('resume'), async (req, res) => {
+  try {
+    if (!req.file) {
+      return res.status(400).json({ message: 'No file uploaded' });
+    }
+
+    if (!['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document']
+        .includes(req.file.mimetype)) {
+      return res.status(400).json({ message: 'Invalid file type. Please upload PDF or Word document.' });
+    }
+
+    const parsed = await parseResume(req.file.buffer, req.file.mimetype);
+    console.log('Parsed resume data:', parsed);
+    res.json(parsed);
+  } catch (error) {
+    console.error('Error processing resume:', error);
+    res.status(500).json({ 
+      message: 'Error processing resume',
+      error: error.message 
+    });
+  }
 });
 
 const port = process.env.PORT || 3000;

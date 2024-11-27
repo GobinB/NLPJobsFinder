@@ -1,11 +1,12 @@
 <div class="job-list-container">
+  <app-resume-upload></app-resume-upload>
+
   <h2>Companies</h2>
 
   <div class="tabs">
     <button (click)="showTab('all')" [class.active]="activeTab === 'all'">All Jobs</button>
     <button (click)="showTab('remote')" [class.active]="activeTab === 'remote'">Remote Jobs</button>
     <button (click)="showTab('kentucky')" [class.active]="activeTab === 'kentucky'">Kentucky Jobs</button>
-    <button (click)="showTab('hybrid')" [class.active]="activeTab === 'hybrid'">Hybrid Jobs</button>
     <button (click)="showTab('saved')" [class.active]="activeTab === 'saved'">Saved Jobs</button>
 
     <!-- Dropdown for selecting user folder -->
@@ -97,40 +98,21 @@
     <p *ngIf="filteredCompanies.length === 0">No Kentucky jobs listed</p>
   </div>
 
-  <!-- Hybrid Jobs Tab -->
-  <div *ngIf="activeTab === 'hybrid'">
-    <h3>Hybrid Jobs</h3>
-    <table *ngIf="filteredCompanies.length > 0">
-      <thead>
-        <tr>
-          <th>Company Name</th>
-          <th>Job Location(s)</th>
-          <th>Interview Description</th>
-          <th>Add Job</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let company of filteredCompanies">
-          <td>{{ company.name }}</td>
-          <td>{{ company.location }}</td>
-          <td>{{ company.description }}</td>
-          <td>
-            <button (click)="addJob(company)">Add Job</button>
-            <span *ngIf="isJobSavedBySelectedUser(company)">✔️</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <p *ngIf="filteredCompanies.length === 0">No hybrid jobs listed</p>
-  </div>
-
   <!-- Saved Jobs Tab -->
   <div *ngIf="activeTab === 'saved'">
     <h3 *ngIf="selectedUser; else noUser">{{ selectedUser }}'s Saved Jobs</h3>
     <ng-template #noUser><h3>Please select a user</h3></ng-template>
-    <div *ngIf="selectedUser && selectedUserJobs.length === 0" class="no-jobs-message">
-      No jobs saved
+    
+    <!-- Show message when jobs are filtered -->
+    <div *ngIf="jobService.hasActiveFilter()" class="filter-status">
+      Showing jobs matching your resume preferences
+      <button (click)="jobService.resetFilters()" class="reset-filter">Clear Filter</button>
     </div>
+
+    <div *ngIf="selectedUser && selectedUserJobs.length === 0" class="no-jobs-message">
+      {{ jobService.hasActiveFilter() ? 'No matching jobs found' : 'No jobs saved' }}
+    </div>
+    
     <table *ngIf="selectedUser && selectedUserJobs.length > 0">
       <thead>
         <tr>
