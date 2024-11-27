@@ -3,81 +3,132 @@ const nlp = require('compromise');
 const mammoth = require('mammoth');
 const pdf = require('pdf-parse');
 
-// Add more comprehensive location data
-nlp.extend(require('compromise-location'))
+// Add more sophisticated NLP plugins
+nlp.extend(require('compromise-dates'))   // For context around work locations
 
 function normalizeLocation(location) {
   return location
     .toLowerCase()
     .trim()
-    .replace(/[.,]/g, ''); // Remove periods and commas
+    .replace(/[.,]/g, '')
+    .replace(/\s+/g, ' ');
 }
 
 function extractLocationsFromText(text) {
   const doc = nlp(text);
-  let locations = [];
+  let locations = new Set();
   let hasRemoteExperience = false;
+
+  // Create a classifier for location validation
+  const classifier = new natural.BayesClassifier();
   
-  // Extract locations using compromise-location plugin
-  const places = doc.places();
-  places.forEach(place => {
-    const location = place.normalize().text().toLowerCase();
-    // Only add unique locations and filter out generic terms
-    if (!locations.includes(location) && location.length > 2) {
-      locations.push(location);
+  // Train the classifier with common location patterns
+  classifier.addDocument('located in', 'location');
+  classifier.addDocument('based in', 'location');
+  classifier.addDocument('office in', 'location');
+  classifier.addDocument('headquarters in', 'location');
+  classifier.addDocument('relocated to', 'location');
+  classifier.train();
+
+  // Use compromise's smart entity recognition with context
+  doc.match('#Place+').forEach(place => {
+    const phrase = place.before(3).after(3).text(); // Get context
+    if (classifier.classify(phrase) === 'location') {
+      const location = normalizeLocation(place.text());
+      if (location.length > 2 && !isCommonWord(location)) {
+        locations.add(location);
+      }
     }
   });
 
-  // Extract countries and regions
-  const countries = doc.places().countries().normalize().out('array');
-  const regions = doc.places().regions().normalize().out('array');
-  
-  // Add countries and regions if not already included
-  [...countries, ...regions].forEach(place => {
-    const location = place.toLowerCase();
-    if (!locations.includes(location)) {
-      locations.push(location);
-    }
-  });
-
-  // Check for remote work experience
-  const remotePatterns = [
-    /\b(?:remote|virtual|work from home|telecommute|distributed team)\b/i,
-    /\b(?:worked remotely|remote position|remote role|remote work)\b/i
+  // Look for location patterns with strong indicators
+  const locationIndicators = [
+    'in', 'at', 'from', 'near', 'around', 
+    'relocated to', 'based in', 'located in', 'moved to'
   ];
 
-  hasRemoteExperience = remotePatterns.some(pattern => pattern.test(text));
-
-  // Add specific location handling for common formats
-  const locationPatterns = [
-    /\b(?:united states|usa|u\.s\.a\.|america)\b/i,
-    /\b(?:uk|united kingdom|great britain)\b/i
-  ];
-
-  locationPatterns.forEach(pattern => {
-    const match = text.match(pattern);
-    if (match && !locations.includes(match[0].toLowerCase())) {
-      locations.push(match[0].toLowerCase());
-    }
+  locationIndicators.forEach(indicator => {
+    const matches = doc.match(`${indicator} #Place+`);
+    matches.forEach(match => {
+      const location = normalizeLocation(match.groups().places?.[0]?.text() || '');
+      if (location && !isCommonWord(location)) {
+        locations.add(location);
+      }
+    });
   });
 
-  // Normalize locations before returning
-  locations = locations
-    .map(loc => normalizeLocation(loc))
-    .filter(loc => loc.length > 2)
-    .filter((loc, index, self) => self.indexOf(loc) === index);
+  // Extract locations from structured formats
+  const structuredPatterns = [
+    /([A-Z][a-z]+(?:\s[A-Z][a-z]+)*),\s*([A-Z]{2})\b/, // City, State
+    /([A-Z]{2})\s*-\s*([A-Z][a-z]+(?:\s[A-Z][a-z]+)*)/, // State - City
+    /\b([A-Z][a-z]+(?:\s[A-Z][a-z]+)*)\s+(?:Area|Region|District)\b/ // Areas
+  ];
+
+  text.split(/[.,;]/).forEach(segment => {
+    structuredPatterns.forEach(pattern => {
+      const match = segment.match(pattern);
+      if (match) {
+        const location = normalizeLocation(match[0]);
+        if (!isCommonWord(location)) {
+          locations.add(location);
+        }
+      }
+    });
+  });
+
+  // Smart remote work detection
+  const remoteContext = doc.match('(work|working|worked) (from|remotely|virtually|at home)').found ||
+    doc.match('remote (#Verb|position|role|work|team)').found ||
+    doc.match('(distributed|virtual|global) team').found;
+
+  // Look for remote work duration for stronger evidence
+  const remoteWithDuration = doc.match([
+    '(remote|virtual) .{0,20} (#Duration|#Date)',
+    'worked remotely for #Duration',
+    'remote (#Position|work) (#Date|since|for)'
+  ].join('|'));
+
+  hasRemoteExperience = remoteContext || remoteWithDuration.found;
 
   return {
-    locations,
+    locations: Array.from(locations),
     hasRemoteExperience,
     organizations: extractOrganizations(doc)
   };
 }
 
+// Helper function to filter out common words that might be mistaken for locations
+function isCommonWord(word) {
+  const commonWords = new Set([
+    'the', 'a', 'an', 'and', 'or', 'but', 'for', 'with', 'without',
+    'about', 'above', 'across', 'after', 'against', 'along', 'among',
+    'around', 'at', 'before', 'behind', 'below', 'beneath', 'beside',
+    'between', 'beyond', 'by', 'down', 'during', 'except', 'for', 'from',
+    'front', 'inside', 'into', 'like', 'near', 'of', 'off', 'on', 'out',
+    'outside', 'over', 'past', 'since', 'through', 'throughout', 'till',
+    'to', 'toward', 'under', 'underneath', 'until', 'up', 'upon', 'with',
+    'within', 'without', 'experience', 'work', 'working', 'company',
+    'business', 'project', 'team', 'development', 'software', 'engineering',
+    'position', 'role', 'job', 'career', 'skills', 'technologies'
+  ]);
+  
+  return commonWords.has(word.toLowerCase()) || word.length < 2;
+}
+
+// Enhanced organization extraction with location context
 function extractOrganizations(doc) {
-  return doc.organizations().normalize().out('array')
-    .map(org => org.toLowerCase())
-    .filter((org, index, self) => self.indexOf(org) === index);
+  const orgs = new Set();
+  
+  doc.organizations().forEach(org => {
+    const orgText = org.text().toLowerCase();
+    const context = org.before('{2}').after('{2}').text();
+    
+    if (context.match(/work|position|role|company|team|project/i)) {
+      orgs.add(orgText);
+    }
+  });
+
+  return Array.from(orgs);
 }
 
 async function parseResume(buffer, fileType) {
