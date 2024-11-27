@@ -9,26 +9,36 @@ const ukLocations = ['england', 'uk', 'united kingdom', 'kent', 'london', 'manch
 
 function classifyJob(description, location) {
   const tokens = tokenizer.tokenize((description + ' ' + location).toLowerCase());
+  const locationLower = location.toLowerCase();
   
+  // Check for Kentucky locations with word boundaries
+  const kentuckyPatterns = [
+    /\bky\b/,
+    /\bkentucky\b/,
+    /\blexington,?\s*ky\b/,
+    /\blouisville,?\s*ky\b/,
+    /\belizabethtown,?\s*ky\b/,
+    /\bbowling green,?\s*ky\b/
+  ];
+
   const isRemote = remoteKeywords.some(keyword => 
-    tokens.includes(keyword) || description.toLowerCase().includes(keyword) || location.toLowerCase().includes(keyword)
+    locationLower.includes(keyword) || description.toLowerCase().includes(keyword)
   );
   
   const isHybrid = hybridKeywords.some(keyword => 
-    tokens.includes(keyword) || description.toLowerCase().includes(keyword) || location.toLowerCase().includes(keyword)
+    locationLower.includes(keyword) || description.toLowerCase().includes(keyword)
   );
 
-  const isUSALocation = usaLocations.some(keyword => tokens.includes(keyword));
-  const isUKLocation = ukLocations.some(keyword => tokens.includes(keyword));
+  const isKentucky = kentuckyPatterns.some(pattern => pattern.test(locationLower));
 
   let jobType = 'On-site';
-  if (isRemote && !isHybrid) jobType = 'Remote';
+  if (isKentucky) jobType = 'Kentucky';
+  else if (isRemote && !isHybrid) jobType = 'Remote';
   else if (isHybrid) jobType = 'Hybrid';
 
-  
   let region = 'Unknown';
-  if (isUSALocation) region = 'USA';
-  else if (isUKLocation) region = 'UK';
+  if (isKentucky || usaLocations.some(loc => locationLower.includes(loc))) region = 'USA';
+  else if (ukLocations.some(loc => locationLower.includes(loc))) region = 'UK';
   
   return { jobType, region };
 }

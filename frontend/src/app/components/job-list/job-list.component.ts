@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { JobService, Company, Job } from '../../services/job.service';
+import { ResumeUploadComponent } from '../resume-upload/resume-upload.component';
 
 interface Folder {
   name: string;
@@ -11,7 +12,7 @@ interface Folder {
 @Component({
   selector: 'app-job-list',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ResumeUploadComponent],
   templateUrl: './job-list.component.html',
   styleUrls: ['./job-list.component.css']
 })
@@ -30,84 +31,92 @@ export class JobListComponent implements OnInit {
 
   selectedUser: string | null = null;
   selectedUserJobs: Job[] = [];
+  private savedJobsBeforeFilter: Job[] = [];
 
-  constructor(private jobService: JobService) {}
+  constructor(public jobService: JobService) {}
 
   ngOnInit(): void {
-    this.jobService.getCompanies().subscribe(
+    this.jobService.filteredCompanies$.subscribe(
       (companies) => {
-        this.companies = companies.map(company => ({
-          ...company,
-          jobType: this.getJobType(company)  // Assign job type based on location or description
-        }));
-        this.filteredCompanies = this.companies;  // Start with all companies
-      },
+        this.companies = companies;
+        if (this.activeTab === 'saved') {
+          this.filterSavedJobs();
+        } else {
+          this.showTab(this.activeTab);
+        }
+      }
+    );
+
+    this.jobService.getCompanies().subscribe(
+      () => {},
       (error) => console.error('Error fetching companies:', error)
     );
 
-    // Load saved folder jobs from local storage
     this.loadFoldersFromStorage();
-  }
-
-  // Function to assign job types based on description and location keywords
-  getJobType(company: Company): string {
-    const location = company.location.toLowerCase();
-    const description = company.description.toLowerCase();
-    
-    // Check for Kentucky locations with word boundaries
-    const kentuckyPatterns = [
-      /\bky\b/,                    
-      /\bkentucky\b/,            
-      /\blexington,\s*ky\b/,     
-      /\blouisville,\s*ky\b/,     
-      /\belizabethtown,\s*ky\b/,  
-      /\bbowling green,\s*ky\b/   
-    ];
-
-    if (kentuckyPatterns.some(pattern => pattern.test(location))) {
-      return 'Kentucky';
-    } else if (location.includes('remote')) {
-      return 'Remote';
-    } else if (description.includes('hybrid')) {
-      return 'Hybrid';
-    }
-    return 'Other';
-  }
-
-  onUserSelect(event: Event): void {
-    const selectElement = event.target as HTMLSelectElement;
-    this.selectedUser = selectElement.value;
-    this.loadSelectedUserJobs();
   }
 
   showTab(tab: 'all' | 'remote' | 'kentucky' | 'hybrid' | 'saved'): void {
     this.activeTab = tab;
-    switch (tab) {
-      case 'all':
-        this.filteredCompanies = this.companies;
-        break;
-      case 'remote':
-        this.filteredCompanies = this.companies.filter(company => company.jobType === 'Remote');
-        break;
-      case 'kentucky':
-        this.filteredCompanies = this.companies.filter(company => company.jobType === 'Kentucky');
-        break;
-      case 'hybrid':
-        this.filteredCompanies = this.companies.filter(company => company.jobType === 'Hybrid');
-        break;
-      case 'saved':
-        this.loadSelectedUserJobs();
-        break;
+    if (tab === 'saved') {
+      this.loadSelectedUserJobs();
+      return;
     }
+
+    this.filteredCompanies = this.companies.filter(company => {
+      switch (tab) {
+        case 'all':
+          return true;
+        case 'remote':
+          return company.jobType === 'Remote';
+        case 'kentucky':
+          return company.jobType === 'Kentucky';
+        case 'hybrid':
+          return company.jobType === 'Hybrid';
+        default:
+          return false;
+      }
+    });
+  }
+
+  onUserSelect(event: any): void {
+    this.loadSelectedUserJobs();
   }
 
   loadSelectedUserJobs(): void {
     if (this.selectedUser) {
       const folder = this.folders.find(f => f.name === this.selectedUser);
-      this.selectedUserJobs = folder ? folder.jobs : [];
+      if (folder) {
+        this.savedJobsBeforeFilter = [...folder.jobs];
+        this.filterSavedJobs();
+      }
     } else {
-      this.selectedUserJobs = []; // Reset jobs if no user is selected
+      this.savedJobsBeforeFilter = [];
+      this.selectedUserJobs = [];
     }
+  }
+
+  private filterSavedJobs(): void {
+    if (!this.jobService.hasActiveFilter()) {
+      this.selectedUserJobs = [...this.savedJobsBeforeFilter];
+      return;
+    }
+
+    const preferences = this.jobService.getCurrentPreferences();
+    if (!preferences) {
+      this.selectedUserJobs = [...this.savedJobsBeforeFilter];
+      return;
+    }
+
+    this.selectedUserJobs = this.savedJobsBeforeFilter.filter(job => {
+      const locationMatch = preferences.locations.some(loc => 
+        job.location.toLowerCase().includes(loc.toLowerCase())
+      );
+      
+      const remoteMatch = preferences.hasRemoteExperience && 
+        job.location.toLowerCase().includes('remote');
+
+      return locationMatch || remoteMatch;
+    });
   }
 
   addJob(company: Company): void {
@@ -122,18 +131,23 @@ export class JobListComponent implements OnInit {
       location: company.location,
       status: 'active',
       description: company.description,
+      jobType: company.jobType,
+      region: company.region,
+      isRemote: company.jobType === 'Remote',
+      isKentucky: company.jobType === 'Kentucky'
     };
 
     const folder = this.folders.find(f => f.name === this.selectedUser);
     if (folder) {
       const jobExists = folder.jobs.some(
-        (job) => job.title === company.name && job.location === company.location && job.description === company.description
+        (job) => job.title === company.name && job.location === company.location
       );
 
       if (!jobExists) {
         folder.jobs.push(newJob);
-        this.selectedUserJobs = folder.jobs;  // Update saved jobs list
-        this.saveFoldersToStorage();  // Persist data in localStorage
+        this.savedJobsBeforeFilter = [...folder.jobs];
+        this.filterSavedJobs();
+        this.saveFoldersToStorage();
       } else {
         console.log('Job already exists in the selected user\'s list.');
       }

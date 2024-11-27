@@ -1,4 +1,6 @@
 <div class="job-list-container">
+  <app-resume-upload></app-resume-upload>
+
   <h2>Companies</h2>
 
   <div class="tabs">
@@ -128,9 +130,17 @@
   <div *ngIf="activeTab === 'saved'">
     <h3 *ngIf="selectedUser; else noUser">{{ selectedUser }}'s Saved Jobs</h3>
     <ng-template #noUser><h3>Please select a user</h3></ng-template>
-    <div *ngIf="selectedUser && selectedUserJobs.length === 0" class="no-jobs-message">
-      No jobs saved
+    
+    <!-- Show message when jobs are filtered -->
+    <div *ngIf="jobService.hasActiveFilter()" class="filter-status">
+      Showing jobs matching your resume preferences
+      <button (click)="jobService.resetFilters()" class="reset-filter">Clear Filter</button>
     </div>
+
+    <div *ngIf="selectedUser && selectedUserJobs.length === 0" class="no-jobs-message">
+      {{ jobService.hasActiveFilter() ? 'No matching jobs found' : 'No jobs saved' }}
+    </div>
+    
     <table *ngIf="selectedUser && selectedUserJobs.length > 0">
       <thead>
         <tr>

@@ -9,10 +9,19 @@
     "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": ["nlp", "job", "finder"],
+  "keywords": [
+    "nlp",
+    "job",
+    "finder"
+  ],
   "author": "",
   "license": "ISC",
   "devDependencies": {
     "concurrently": "^6.2.0"
+  },
+  "dependencies": {
+    "compromise": "^14.14.2",
+    "mammoth": "^1.8.0",
+    "pdf-parse": "^1.1.1"
   }
 }

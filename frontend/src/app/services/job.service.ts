@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, of, BehaviorSubject } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 
 export interface Job {
@@ -11,6 +11,8 @@ export interface Job {
   description: string;
   isRemote?: boolean;
   isKentucky?: boolean;
+  jobType?: string;
+  region?: string;
 }
 
 export interface Company {
@@ -34,6 +36,16 @@ export class JobService {
   private hybridKeywords = ['hybrid', 'flexible', 'partially remote'];
   private usaLocations = ['usa', 'united states', 'kentucky'];
 
+  private resumePreferences: {
+    locations: string[];
+    hasRemoteExperience: boolean;
+    organizations: string[];
+  } | null = null;
+
+  private filteredCompaniesSubject = new BehaviorSubject<Company[]>([]);
+  filteredCompanies$ = this.filteredCompaniesSubject.asObservable();
+  private allCompanies: Company[] = [];
+
   constructor(private http: HttpClient) { }
 
   getJobs(): Observable<Job[]> {
@@ -45,30 +57,56 @@ export class JobService {
 
   getCompanies(): Observable<Company[]> {
     return this.http.get<Company[]>(`${this.apiUrl}/companies`).pipe(
-      map(companies => companies.map(company => this.classifyCompany(company))),
+      map(companies => {
+        this.allCompanies = companies.map(company => this.classifyCompany(company));
+        this.filteredCompaniesSubject.next(this.allCompanies);
+        return this.allCompanies;
+      }),
       catchError(this.handleError<Company[]>('getCompanies', []))
-
     );
   }
 
   private classifyCompany(company: Company): Company {
-    const description = company.description.toLowerCase();
-    const location = company.location.toLowerCase();
-    const tokens = description.split(' ').concat(location.split(' '));
+    const { jobType, region } = this.classifyJobType(company.description, company.location);
+    return { 
+      ...company, 
+      jobType, 
+      region,
+      isRemote: jobType === 'Remote',
+      isKentucky: jobType === 'Kentucky'
+    };
+  }
+
+  private classifyJobType(description: string, location: string): { jobType: string; region: string } {
+    const locationLower = location.toLowerCase();
+    const descriptionLower = description.toLowerCase();
+
+    // Check for Kentucky first
+    const kentuckyPatterns = [
+      /\bky\b/,
+      /\bkentucky\b/,
+      /\blexington,?\s*ky\b/,
+      /\blouisville,?\s*ky\b/
+    ];
+    
+    const isKentucky = kentuckyPatterns.some(pattern => pattern.test(locationLower));
     const isRemote = this.remoteKeywords.some(keyword => 
-      tokens.includes(keyword) || description.includes(keyword) || location.includes(keyword)
+      locationLower.includes(keyword) || descriptionLower.includes(keyword)
     );
     const isHybrid = this.hybridKeywords.some(keyword => 
-      tokens.includes(keyword) || description.includes(keyword) || location.includes(keyword)
+      locationLower.includes(keyword) || descriptionLower.includes(keyword)
     );
-    const isUSALocation = this.usaLocations.some(keyword => tokens.includes(keyword));
-   
+
     let jobType = 'On-site';
-    if (isRemote && !isHybrid) jobType = 'Remote';
+    if (isKentucky) jobType = 'Kentucky';
+    else if (isRemote && !isHybrid) jobType = 'Remote';
     else if (isHybrid) jobType = 'Hybrid';
-    let region = 'Unknown';
-    if (isUSALocation) region = 'USA';
-    return { ...company, jobType, region, isRemote, isKentucky: location.includes('kentucky') };
+
+    const region = isKentucky || this.usaLocations.some(loc => locationLower.includes(loc)) 
+      ? 'USA' 
+      : 'Unknown';
+
+    return { jobType, region };
   }
 
   addJob(job: Job): Observable<Job> {
@@ -83,12 +121,62 @@ export class JobService {
     );
   }
 
+  parseResume(file: File): Observable<any> {
+    const formData = new FormData();
+    formData.append('resume', file);
+
+    return this.http.post(`${this.apiUrl}/resume-parse`, formData).pipe(
+      catchError(this.handleError('parseResume', null))
+    );
+  }
+
+  updateJobPreferences(preferences: any) {
+    this.resumePreferences = preferences;
+    // Emit the new filter state to all subscribers
+    this.filterCompaniesByPreferences();
+  }
+
+  private filterCompaniesByPreferences() {
+    if (!this.resumePreferences) {
+      this.filteredCompaniesSubject.next(this.allCompanies);
+      return;
+    }
+
+    const filteredCompanies = this.allCompanies.filter(company => {
+      const locationMatch = this.resumePreferences!.locations.some(loc => 
+        company.location.toLowerCase().includes(loc.toLowerCase())
+      );
+      
+      const remoteMatch = this.resumePreferences!.hasRemoteExperience && 
+        company.jobType === 'Remote';
+
+      return locationMatch || remoteMatch;
+    });
+
+    this.filteredCompaniesSubject.next(filteredCompanies);
+  }
+
+  resetFilters() {
+    this.resumePreferences = null;
+    this.filteredCompaniesSubject.next(this.allCompanies);
+    // Force a re-render of the current view
+    this.filteredCompaniesSubject.next([...this.allCompanies]);
+  }
+
   private handleError<T>(operation = 'operation', result?: T) {
     return (error: any): Observable<T> => {
       console.error(`${operation} failed: ${error.message}`);
       return of(result as T);
     };
 
+  }
+
+  hasActiveFilter(): boolean {
+    return this.resumePreferences !== null;
+  }
+
+  getCurrentPreferences() {
+    return this.resumePreferences;
   }
 
 }
