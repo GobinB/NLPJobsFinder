@@ -4,6 +4,7 @@
   "description": "NLP-based job finder application",
   "main": "index.js",
   "scripts": {
+    "preinstall": "cd backend && npm install && cd ../frontend && npm install",
     "start:frontend": "cd frontend && ng serve",
     "start:backend": "cd backend && node src/app.js",
     "start": "concurrently \"npm run start:frontend\" \"npm run start:backend\"",
