@@ -19,7 +19,7 @@ interface Folder {
 export class JobListComponent implements OnInit {
   companies: Company[] = [];
   filteredCompanies: Company[] = [];
-  activeTab: 'all' | 'remote' | 'kentucky' | 'hybrid' | 'saved' = 'all';
+  activeTab: 'all' | 'remote' | 'kentucky' | 'saved' = 'all';
   
   folders: Folder[] = [
     { name: 'Ahmed', jobs: [] },
@@ -55,7 +55,7 @@ export class JobListComponent implements OnInit {
     this.loadFoldersFromStorage();
   }
 
-  showTab(tab: 'all' | 'remote' | 'kentucky' | 'hybrid' | 'saved'): void {
+  showTab(tab: 'all' | 'remote' | 'kentucky' | 'saved'): void {
     this.activeTab = tab;
     if (tab === 'saved') {
       this.loadSelectedUserJobs();
@@ -70,10 +70,8 @@ export class JobListComponent implements OnInit {
           return company.jobType === 'Remote';
         case 'kentucky':
           return company.jobType === 'Kentucky';
-        case 'hybrid':
-          return company.jobType === 'Hybrid';
         default:
-          return false;
+          return true;
       }
     });
   }

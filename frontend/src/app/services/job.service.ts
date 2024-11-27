@@ -33,7 +33,6 @@ export class JobService {
   private apiUrl = 'http://localhost:3000/api';
 
   private remoteKeywords = ['remote', 'work from home', 'telecommute', 'virtual', 'anywhere'];
-  private hybridKeywords = ['hybrid', 'flexible', 'partially remote'];
   private usaLocations = ['usa', 'united states', 'kentucky'];
 
   private resumePreferences: {
@@ -93,14 +92,10 @@ export class JobService {
     const isRemote = this.remoteKeywords.some(keyword => 
       locationLower.includes(keyword) || descriptionLower.includes(keyword)
     );
-    const isHybrid = this.hybridKeywords.some(keyword => 
-      locationLower.includes(keyword) || descriptionLower.includes(keyword)
-    );
 
     let jobType = 'On-site';
     if (isKentucky) jobType = 'Kentucky';
-    else if (isRemote && !isHybrid) jobType = 'Remote';
-    else if (isHybrid) jobType = 'Hybrid';
+    else if (isRemote) jobType = 'Remote';
 
     const region = isKentucky || this.usaLocations.some(loc => locationLower.includes(loc)) 
       ? 'USA' 

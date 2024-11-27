@@ -7,7 +7,6 @@
     <button (click)="showTab('all')" [class.active]="activeTab === 'all'">All Jobs</button>
     <button (click)="showTab('remote')" [class.active]="activeTab === 'remote'">Remote Jobs</button>
     <button (click)="showTab('kentucky')" [class.active]="activeTab === 'kentucky'">Kentucky Jobs</button>
-    <button (click)="showTab('hybrid')" [class.active]="activeTab === 'hybrid'">Hybrid Jobs</button>
     <button (click)="showTab('saved')" [class.active]="activeTab === 'saved'">Saved Jobs</button>
 
     <!-- Dropdown for selecting user folder -->
@@ -97,33 +96,6 @@
       </tbody>
     </table>
     <p *ngIf="filteredCompanies.length === 0">No Kentucky jobs listed</p>
-  </div>
-
-  <!-- Hybrid Jobs Tab -->
-  <div *ngIf="activeTab === 'hybrid'">
-    <h3>Hybrid Jobs</h3>
-    <table *ngIf="filteredCompanies.length > 0">
-      <thead>
-        <tr>
-          <th>Company Name</th>
-          <th>Job Location(s)</th>
-          <th>Interview Description</th>
-          <th>Add Job</th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr *ngFor="let company of filteredCompanies">
-          <td>{{ company.name }}</td>
-          <td>{{ company.location }}</td>
-          <td>{{ company.description }}</td>
-          <td>
-            <button (click)="addJob(company)">Add Job</button>
-            <span *ngIf="isJobSavedBySelectedUser(company)">✔️</span>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-    <p *ngIf="filteredCompanies.length === 0">No hybrid jobs listed</p>
   </div>
 
   <!-- Saved Jobs Tab -->
