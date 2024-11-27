@@ -13,4 +13,13 @@
 #npm run start:backend 
 
 
+You have to be on bash: 
+
+rm -rf node_modules
+rm -rf backend/node_modules
+rm -rf frontend/node_modules
+
+
+then npm install from root and npm start. 
+
 
