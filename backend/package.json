@@ -13,6 +13,8 @@
     "axios": "^1.7.7",
     "cheerio": "^1.0.0",
     "compromise": "^14.14.2",
+    "compromise-dates": "^3.4.1",
+    "compromise-numbers": "^1.4.0",
     "cors": "^2.8.5",
     "express": "^4.17.1",
     "mammoth": "^1.8.0",
