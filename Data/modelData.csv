@@ -1,0 +1,361 @@
+city,city_ascii,lat,lng,country,iso2,iso3,admin_name,capital,population,id
+Indianapolis,Indianapolis,39.7771,-86.1458,United States,US,USA,Indiana,admin,1729849.0,1840030084
+Cincinnati,Cincinnati,39.1413,-84.506,United States,US,USA,Ohio,,1692702.0,1840003814
+Cleveland,Cleveland,41.4764,-81.6805,United States,US,USA,Ohio,,1680247.0,1840000596
+Columbus,Columbus,39.9862,-82.9855,United States,US,USA,Ohio,admin,1572546.0,1840003760
+Louisville,Louisville,38.1663,-85.6485,United States,US,USA,Kentucky,,963812.0,1840030815
+Dayton,Dayton,39.7805,-84.2003,United States,US,USA,Ohio,,668825.0,1840034249
+Akron,Akron,41.0798,-81.5219,United States,US,USA,Ohio,,541945.0,1840000791
+Toledo,Toledo,41.6638,-83.5827,United States,US,USA,Ohio,,493302.0,1840000572
+Fort Wayne,Fort Wayne,41.0888,-85.1436,United States,US,USA,Indiana,,337163.0,1840008261
+Lexington,Lexington,38.0423,-84.4587,United States,US,USA,Kentucky,,321276.0,1840015211
+Youngstown,Youngstown,41.0993,-80.6463,United States,US,USA,Ohio,,319065.0,1840003563
+Canton,Canton,40.8078,-81.3676,United States,US,USA,Ohio,,294047.0,1840000963
+South Bend,South Bend,41.6767,-86.2696,United States,US,USA,Indiana,,278061.0,1840009241
+Evansville,Evansville,37.9881,-87.5341,United States,US,USA,Indiana,,203661.0,1840013730
+Lorain,Lorain,41.4409,-82.184,United States,US,USA,Ohio,,201808.0,1840000644
+Lafayette,Lafayette,40.3991,-86.8593,United States,US,USA,Indiana,,160543.0,1840008354
+Elkhart,Elkhart,41.6916,-85.9627,United States,US,USA,Indiana,,149423.0,1840008187
+Bloomington,Bloomington,39.1637,-86.5257,United States,US,USA,Indiana,,108387.0,1840007376
+Bowling Green,Bowling Green,36.9716,-86.4378,United States,US,USA,Kentucky,,99669.0,1840013265
+Carmel,Carmel,39.965,-86.146,United States,US,USA,Indiana,,99453.0,1840007260
+Fishers,Fishers,39.9588,-85.9659,United States,US,USA,Indiana,,99041.0,1840010496
+Middletown,Middletown,39.5033,-84.3659,United States,US,USA,Ohio,,93870.0,1840003804
+Muncie,Muncie,40.1989,-85.395,United States,US,USA,Indiana,,88061.0,1840008365
+Anderson,Anderson,40.0891,-85.6892,United States,US,USA,Indiana,,83875.0,1840007242
+Springfield,Springfield,39.93,-83.7959,United States,US,USA,Ohio,,81620.0,1840003765
+Parma,Parma,41.3843,-81.7286,United States,US,USA,Ohio,,80587.0,1840003406
+Terre Haute,Terre Haute,39.466,-87.3751,United States,US,USA,Indiana,,80567.0,1840009671
+Newark,Newark,40.0706,-82.425,United States,US,USA,Ohio,,79959.0,1840001419
+Elizabethtown,Elizabethtown,37.7031,-85.8773,United States,US,USA,Kentucky,,77770.0,1840013218
+Hammond,Hammond,41.6168,-87.4909,United States,US,USA,Indiana,,77390.0,1840007092
+Owensboro,Owensboro,37.7575,-87.1172,United States,US,USA,Kentucky,,75644.0,1840014340
+Mansfield,Mansfield,40.7656,-82.5275,United States,US,USA,Ohio,,73448.0,1840000960
+Noblesville,Noblesville,40.0355,-86.0042,United States,US,USA,Indiana,,70442.0,1840013891
+Michigan City,Michigan City,41.7092,-86.869,United States,US,USA,Indiana,,69459.0,1840013869
+Gary,Gary,41.5905,-87.3473,United States,US,USA,Indiana,,69136.0,1840008194
+Greenwood,Greenwood,39.6019,-86.1073,United States,US,USA,Indiana,,63579.0,1840007332
+Hamilton,Hamilton,39.3939,-84.5653,United States,US,USA,Ohio,,63149.0,1840003803
+Kokomo,Kokomo,40.464,-86.1277,United States,US,USA,Indiana,,59534.0,1840013844
+Kettering,Kettering,39.6956,-84.1494,United States,US,USA,Ohio,,57707.0,1840003783
+Elyria,Elyria,41.376,-82.106,United States,US,USA,Ohio,,52780.0,1840000643
+Cuyahoga Falls,Cuyahoga Falls,41.1641,-81.5207,United States,US,USA,Ohio,,50916.0,1840000795
+Mishawaka,Mishawaka,41.6742,-86.1666,United States,US,USA,Indiana,,50899.0,1840014695
+Columbus,Columbus,39.2093,-85.9183,United States,US,USA,Indiana,,50896.0,1840013714
+Lakewood,Lakewood,41.4822,-81.8008,United States,US,USA,Ohio,,50605.0,1840000608
+Jeffersonville,Jeffersonville,38.3376,-85.7026,United States,US,USA,Indiana,,49771.0,1840008642
+Euclid,Euclid,41.5903,-81.5188,United States,US,USA,Ohio,,49279.0,1840000600
+Lawrence,Lawrence,39.8674,-85.9904,United States,US,USA,Indiana,,49218.0,1840008434
+Dublin,Dublin,40.1112,-83.1454,United States,US,USA,Ohio,,48893.0,1840008389
+Westfield,Westfield,40.0341,-86.1529,United States,US,USA,Indiana,,48262.0,1840010500
+Mentor,Mentor,41.6893,-81.3362,United States,US,USA,Ohio,,47302.0,1840000539
+Beavercreek,Beavercreek,39.731,-84.0624,United States,US,USA,Ohio,,46576.0,1840007312
+Strongsville,Strongsville,41.3128,-81.8313,United States,US,USA,Ohio,,46165.0,1840003415
+Cleveland Heights,Cleveland Heights,41.5113,-81.5636,United States,US,USA,Ohio,,45002.0,1840000597
+West Lafayette,West Lafayette,40.4432,-86.9238,United States,US,USA,Indiana,,44861.0,1840010430
+Fairfield,Fairfield,39.3301,-84.5409,United States,US,USA,Ohio,,44602.0,1840003802
+Huber Heights,Huber Heights,39.8595,-84.113,United States,US,USA,Ohio,,43095.0,1840003782
+Delaware,Delaware,40.2851,-83.0741,United States,US,USA,Ohio,,41926.0,1840007237
+Grove City,Grove City,39.8654,-83.069,United States,US,USA,Ohio,,41423.0,1840007264
+Reynoldsburg,Reynoldsburg,39.9588,-82.7943,United States,US,USA,Ohio,,40926.0,1840009473
+Covington,Covington,39.0334,-84.5166,United States,US,USA,Kentucky,,40923.0,1840014263
+Lancaster,Lancaster,39.7248,-82.6049,United States,US,USA,Ohio,,40616.0,1840003781
+Findlay,Findlay,41.0469,-83.6379,United States,US,USA,Ohio,,40408.0,1840000886
+Warren,Warren,41.239,-80.8174,United States,US,USA,Ohio,,39204.0,1840000652
+Westerville,Westerville,40.1241,-82.921,United States,US,USA,Ohio,,38911.0,1840003763
+Portage,Portage,41.5856,-87.1797,United States,US,USA,Indiana,,37737.0,1840009264
+New Albany,New Albany,38.309,-85.8234,United States,US,USA,Indiana,,37598.0,1840008662
+Georgetown,Georgetown,38.2247,-84.5487,United States,US,USA,Kentucky,,37510.0,1840013197
+Upper Arlington,Upper Arlington,40.0272,-83.0704,United States,US,USA,Ohio,,36500.0,1840003762
+Merrillville,Merrillville,41.4728,-87.3196,United States,US,USA,Indiana,,36214.0,1840009261
+Hilliard,Hilliard,40.0353,-83.1578,United States,US,USA,Ohio,,36103.0,1840007265
+Marion,Marion,40.5973,-83.1227,United States,US,USA,Ohio,,35927.0,1840008332
+Richmond,Richmond,39.8318,-84.8905,United States,US,USA,Indiana,,35642.0,1840014176
+Lima,Lima,40.741,-84.112,United States,US,USA,Ohio,,35555.0,1840002785
+Gahanna,Gahanna,40.0251,-82.8637,United States,US,USA,Ohio,,35529.0,1840008390
+North Ridgeville,North Ridgeville,41.3852,-82.0195,United States,US,USA,Ohio,,35481.0,1840000645
+Brunswick,Brunswick,41.2465,-81.8198,United States,US,USA,Ohio,,35304.0,1840003485
+Plainfield,Plainfield,39.6954,-86.3716,United States,US,USA,Indiana,,35078.0,1840010579
+Richmond,Richmond,37.7307,-84.2925,United States,US,USA,Kentucky,,34883.0,1840014341
+Mason,Mason,39.3571,-84.3023,United States,US,USA,Ohio,,34768.0,1840008467
+Goshen,Goshen,41.5743,-85.8309,United States,US,USA,Indiana,,34704.0,1840013733
+Fairborn,Fairborn,39.801,-84.0094,United States,US,USA,Ohio,,34494.0,1840008440
+Stow,Stow,41.1765,-81.4344,United States,US,USA,Ohio,,34459.0,1840000803
+Westlake,Westlake,41.4524,-81.9294,United States,US,USA,Ohio,,34027.0,1840003420
+Valparaiso,Valparaiso,41.4783,-87.0506,United States,US,USA,Indiana,,33991.0,1840014674
+Crown Point,Crown Point,41.4143,-87.3457,United States,US,USA,Indiana,,33735.0,1840007091
+North Olmsted,North Olmsted,41.4149,-81.919,United States,US,USA,Ohio,,32244.0,1840003400
+Massillon,Massillon,40.7838,-81.5254,United States,US,USA,Ohio,,32179.0,1840000965
+Florence,Florence,38.9899,-84.6471,United States,US,USA,Kentucky,,32056.0,1840013161
+Nicholasville,Nicholasville,37.8906,-84.5668,United States,US,USA,Kentucky,,31352.0,1840014330
+North Royalton,North Royalton,41.3138,-81.745,United States,US,USA,Ohio,,31120.0,1840003402
+Hopkinsville,Hopkinsville,36.8381,-87.4775,United States,US,USA,Kentucky,,31042.0,1840014399
+Zionsville,Zionsville,39.9897,-86.3182,United States,US,USA,Indiana,,30832.0,1840010515
+Austintown,Austintown,41.0932,-80.7405,United States,US,USA,Ohio,,30397.0,1840005185
+Bowling Green,Bowling Green,41.3776,-83.6495,United States,US,USA,Ohio,,30157.0,1840000621
+Granger,Granger,41.7374,-86.1348,United States,US,USA,Indiana,,30019.0,1840030079
+Schererville,Schererville,41.4861,-87.4442,United States,US,USA,Indiana,,29573.0,1840010222
+Hobart,Hobart,41.514,-87.2729,United States,US,USA,Indiana,,29573.0,1840007093
+Garfield Heights,Garfield Heights,41.4199,-81.6038,United States,US,USA,Ohio,,29497.0,1840000602
+Brownsburg,Brownsburg,39.8337,-86.383,United States,US,USA,Indiana,,29379.0,1840009536
+Shaker Heights,Shaker Heights,41.4744,-81.5496,United States,US,USA,Ohio,,29157.0,1840003412
+Jeffersontown,Jeffersontown,38.2049,-85.5701,United States,US,USA,Kentucky,,28796.0,1840014311
+Independence,Independence,38.951,-84.5492,United States,US,USA,Kentucky,,28722.0,1840014267
+Frankfort,Frankfort,38.1924,-84.8643,United States,US,USA,Kentucky,admin,28460.0,1840013210
+Henderson,Henderson,37.8397,-87.5798,United States,US,USA,Kentucky,,28166.0,1840014337
+Marion,Marion,40.5497,-85.6604,United States,US,USA,Indiana,,27528.0,1840013868
+Kent,Kent,41.149,-81.361,United States,US,USA,Ohio,,27336.0,1840008256
+Green,Green,40.9483,-81.4757,United States,US,USA,Ohio,,27333.0,1840008254
+Wooster,Wooster,40.8172,-81.9336,United States,US,USA,Ohio,,27021.0,1840000961
+Paducah,Paducah,37.0711,-88.644,United States,US,USA,Kentucky,,26869.0,1840014388
+Troy,Troy,40.0437,-84.2186,United States,US,USA,Ohio,,26494.0,1840010508
+East Chicago,East Chicago,41.6469,-87.4545,United States,US,USA,Indiana,,26363.0,1840008193
+Medina,Medina,41.1358,-81.8695,United States,US,USA,Ohio,,26092.0,1840003486
+Franklin,Franklin,39.4948,-86.0544,United States,US,USA,Indiana,,26073.0,1840008460
+Marysville,Marysville,40.2279,-83.3595,United States,US,USA,Ohio,,25806.0,1840008355
+Xenia,Xenia,39.6829,-83.9413,United States,US,USA,Ohio,,25499.0,1840003790
+Avon Lake,Avon Lake,41.4944,-82.0159,United States,US,USA,Ohio,,25220.0,1840000642
+Barberton,Barberton,41.0095,-81.6037,United States,US,USA,Ohio,,25167.0,1840000792
+Sandusky,Sandusky,41.4468,-82.7024,United States,US,USA,Ohio,,24964.0,1840003433
+Perrysburg,Perrysburg,41.5377,-83.6413,United States,US,USA,Ohio,,24855.0,1840000623
+Avon,Avon,41.4485,-82.0187,United States,US,USA,Ohio,,24822.0,1840000641
+Zanesville,Zanesville,39.9565,-82.0132,United States,US,USA,Ohio,,24772.0,1840001496
+Centerville,Centerville,39.6339,-84.1449,United States,US,USA,Ohio,,24510.0,1840007308
+Riverside,Riverside,39.7835,-84.1219,United States,US,USA,Ohio,,24482.0,1840012490
+Wadsworth,Wadsworth,41.0279,-81.7323,United States,US,USA,Ohio,,24073.0,1840010294
+Solon,Solon,41.3865,-81.44,United States,US,USA,Ohio,,24053.0,1840003413
+Willoughby,Willoughby,41.6459,-81.4084,United States,US,USA,Ohio,,23823.0,1840000547
+Highland,Highland,41.5483,-87.4588,United States,US,USA,Indiana,,23794.0,1840010226
+Munster,Munster,41.5468,-87.504,United States,US,USA,Indiana,,23731.0,1840009262
+Greenfield,Greenfield,39.7937,-85.7738,United States,US,USA,Indiana,,23669.0,1840014673
+Maple Heights,Maple Heights,41.4094,-81.5625,United States,US,USA,Ohio,,23473.0,1840000611
+Pickerington,Pickerington,39.889,-82.7678,United States,US,USA,Ohio,,23229.0,1840009528
+Trotwood,Trotwood,39.7926,-84.3165,United States,US,USA,Ohio,,23125.0,1840010582
+Hudson,Hudson,41.2399,-81.4408,United States,US,USA,Ohio,,23005.0,1840007138
+Radcliff,Radcliff,37.8204,-85.9365,United States,US,USA,Kentucky,,22981.0,1840014329
+Athens,Athens,39.327,-82.0987,United States,US,USA,Ohio,,22698.0,1840007355
+La Porte,La Porte,41.6069,-86.7142,United States,US,USA,Indiana,,22409.0,1840030063
+Clarksville,Clarksville,38.322,-85.7673,United States,US,USA,Indiana,,22087.0,1840009665
+Oxford,Oxford,39.5061,-84.7446,United States,US,USA,Ohio,,22051.0,1840009572
+Chillicothe,Chillicothe,39.3393,-82.9939,United States,US,USA,Ohio,,22002.0,1840007369
+Avon,Avon,39.7601,-86.3916,United States,US,USA,Indiana,,21783.0,1840009535
+South Euclid,South Euclid,41.524,-81.5245,United States,US,USA,Ohio,,21754.0,1840003414
+Alliance,Alliance,40.9107,-81.1189,United States,US,USA,Ohio,,21603.0,1840000962
+Rocky River,Rocky River,41.4702,-81.8525,United States,US,USA,Ohio,,21552.0,1840003410
+Ashland,Ashland,38.4592,-82.6448,United States,US,USA,Kentucky,,21542.0,1840013195
+Seymour,Seymour,38.9476,-85.8911,United States,US,USA,Indiana,,21373.0,1840009708
+Lebanon,Lebanon,39.4254,-84.2133,United States,US,USA,Ohio,,20999.0,1840001546
+St. John,St. John,41.4429,-87.4697,United States,US,USA,Indiana,,20727.0,1840010221
+Parma Heights,Parma Heights,41.3865,-81.7637,United States,US,USA,Ohio,,20706.0,1840003407
+Piqua,Piqua,40.1506,-84.2441,United States,US,USA,Ohio,,20441.0,1840009467
+Painesville,Painesville,41.724,-81.2536,United States,US,USA,Ohio,,20387.0,1840000542
+Sidney,Sidney,40.2891,-84.1667,United States,US,USA,Ohio,,20350.0,1840009429
+Mayfield Heights,Mayfield Heights,41.5174,-81.4534,United States,US,USA,Ohio,,20127.0,1840000613
+Whitehall,Whitehall,39.9682,-82.8833,United States,US,USA,Ohio,,20035.0,1840003764
+Forest Park,Forest Park,39.2861,-84.5258,United States,US,USA,Ohio,,20005.0,1840003818
+Oregon,Oregon,41.6524,-83.4321,United States,US,USA,Ohio,,19896.0,1840000570
+Miamisburg,Miamisburg,39.6322,-84.2724,United States,US,USA,Ohio,,19877.0,1840008436
+Broadview Heights,Broadview Heights,41.3196,-81.6779,United States,US,USA,Ohio,,19815.0,1840000591
+Shelbyville,Shelbyville,39.5352,-85.7793,United States,US,USA,Indiana,,19678.0,1840009561
+Erlanger,Erlanger,39.0109,-84.5864,United States,US,USA,Kentucky,,19577.0,1840013168
+Madisonville,Madisonville,37.3409,-87.5034,United States,US,USA,Kentucky,,19433.0,1840015244
+Twinsburg,Twinsburg,41.322,-81.4451,United States,US,USA,Ohio,,19291.0,1840000805
+Ashland,Ashland,40.8668,-82.3156,United States,US,USA,Ohio,,19270.0,1840002751
+Springboro,Springboro,39.5615,-84.2348,United States,US,USA,Ohio,,19218.0,1840009573
+White Oak,White Oak,39.2106,-84.606,United States,US,USA,Ohio,,19101.0,1840034164
+Winchester,Winchester,38.0018,-84.1908,United States,US,USA,Kentucky,,19080.0,1840015216
+Sylvania,Sylvania,41.71,-83.7092,United States,US,USA,Ohio,,19042.0,1840009255
+Norwood,Norwood,39.1605,-84.4535,United States,US,USA,Ohio,,19018.0,1840001610
+Berea,Berea,41.3696,-81.8641,United States,US,USA,Ohio,,18550.0,1840000588
+Brook Park,Brook Park,41.4036,-81.8219,United States,US,USA,Ohio,,18509.0,1840000594
+Tallmadge,Tallmadge,41.1023,-81.4216,United States,US,USA,Ohio,,18411.0,1840000804
+Burlington,Burlington,39.0223,-84.7217,United States,US,USA,Kentucky,,18264.0,1840013160
+Steubenville,Steubenville,40.3653,-80.6519,United States,US,USA,Ohio,,18175.0,1840001341
+Logansport,Logansport,40.7472,-86.352,United States,US,USA,Indiana,,18166.0,1840013861
+Portsmouth,Portsmouth,38.7538,-82.9445,United States,US,USA,Ohio,,18130.0,1840001646
+Niles,Niles,41.1879,-80.7531,United States,US,USA,Ohio,,18107.0,1840008241
+Ashtabula,Ashtabula,41.8805,-80.7984,United States,US,USA,Ohio,,18003.0,1840007046
+Mount Washington,Mount Washington,38.043,-85.5551,United States,US,USA,Kentucky,,17987.0,1840014322
+Tiffin,Tiffin,41.1165,-83.1805,United States,US,USA,Ohio,,17894.0,1840000821
+Pataskala,Pataskala,40.011,-82.7155,United States,US,USA,Ohio,,17843.0,1840001420
+North Canton,North Canton,40.8742,-81.3971,United States,US,USA,Ohio,,17773.0,1840008290
+Eastlake,Eastlake,41.6581,-81.4322,United States,US,USA,Ohio,,17625.0,1840000533
+New Philadelphia,New Philadelphia,40.486,-81.4401,United States,US,USA,Ohio,,17602.0,1840001281
+St. Matthews,St. Matthews,38.2497,-85.6384,United States,US,USA,Kentucky,,17511.0,1840015194
+Murray,Murray,36.6146,-88.3207,United States,US,USA,Kentucky,,17414.0,1840014410
+New Castle,New Castle,39.9191,-85.3697,United States,US,USA,Indiana,,17413.0,1840008396
+Streetsboro,Streetsboro,41.2396,-81.3456,United States,US,USA,Ohio,,17378.0,1840000808
+Fort Thomas,Fort Thomas,39.0801,-84.4518,United States,US,USA,Kentucky,,17310.0,1840013163
+Lebanon,Lebanon,40.0324,-86.4551,United States,US,USA,Indiana,,17277.0,1840008387
+Shelbyville,Shelbyville,38.2067,-85.2292,United States,US,USA,Kentucky,,17239.0,1840015205
+Aurora,Aurora,41.3118,-81.345,United States,US,USA,Ohio,,17227.0,1840000806
+Danville,Danville,37.6418,-84.7777,United States,US,USA,Kentucky,,17191.0,1840014354
+Fairview Park,Fairview Park,41.4419,-81.853,United States,US,USA,Ohio,,17137.0,1840000601
+Norwalk,Norwalk,41.2443,-82.6088,United States,US,USA,Ohio,,17041.0,1840000817
+Huntington,Huntington,40.881,-85.5063,United States,US,USA,Indiana,,17017.0,1840007169
+Mount Vernon,Mount Vernon,40.3854,-82.4737,United States,US,USA,Ohio,,16861.0,1840001343
+Defiance,Defiance,41.2813,-84.3657,United States,US,USA,Ohio,,16852.0,1840007133
+Vincennes,Vincennes,38.6759,-87.5102,United States,US,USA,Indiana,,16715.0,1840010730
+Jasper,Jasper,38.3933,-86.9402,United States,US,USA,Indiana,,16488.0,1840008646
+Warsaw,Warsaw,41.2448,-85.8465,United States,US,USA,Indiana,,16473.0,1840010277
+Dyer,Dyer,41.4977,-87.509,United States,US,USA,Indiana,,16407.0,1840010224
+Crawfordsville,Crawfordsville,40.0428,-86.8976,United States,US,USA,Indiana,,16335.0,1840007261
+Griffith,Griffith,41.5277,-87.4239,United States,US,USA,Indiana,,16182.0,1840010225
+Bay Village,Bay Village,41.4851,-81.9317,United States,US,USA,Ohio,,16047.0,1840003394
+Frankfort,Frankfort,40.281,-86.5212,United States,US,USA,Indiana,,15976.0,1840008358
+Middleburg Heights,Middleburg Heights,41.3696,-81.815,United States,US,USA,Ohio,,15918.0,1840000614
+Fremont,Fremont,41.3535,-83.1147,United States,US,USA,Ohio,,15900.0,1840000653
+Shively,Shively,38.197,-85.8136,United States,US,USA,Kentucky,,15595.0,1840015196
+New Haven,New Haven,41.0676,-85.0174,United States,US,USA,Indiana,,15552.0,1840008262
+Berea,Berea,37.5904,-84.2898,United States,US,USA,Kentucky,,15404.0,1840013225
+Monroe,Monroe,39.4461,-84.3667,United States,US,USA,Ohio,,15202.0,1840008465
+Beech Grove,Beech Grove,39.7157,-86.0871,United States,US,USA,Indiana,,15181.0,1840007307
+Vandalia,Vandalia,39.8791,-84.193,United States,US,USA,Ohio,,15139.0,1840003786
+Glasgow,Glasgow,37.0048,-85.9263,United States,US,USA,Kentucky,,15043.0,1840013268
+Worthington,Worthington,40.095,-83.0209,United States,US,USA,Ohio,,14997.0,1840010522
+Washington Court House,Washington Court House,39.5381,-83.4281,United States,US,USA,Ohio,,14387.0,1840003801
+Cedar Lake,Cedar Lake,41.3696,-87.4389,United States,US,USA,Indiana,,14215.0,1840009259
+Willowick,Willowick,41.6342,-81.4678,United States,US,USA,Ohio,,14213.0,1840000549
+Chesterton,Chesterton,41.5997,-87.055,United States,US,USA,Indiana,,14191.0,1840009267
+Newport,Newport,39.0856,-84.4868,United States,US,USA,Kentucky,,14190.0,1840014261
+Shepherdsville,Shepherdsville,37.9813,-85.7007,United States,US,USA,Kentucky,,14136.0,1840015214
+Powell,Powell,40.1689,-83.0829,United States,US,USA,Ohio,,14113.0,1840009430
+Sharonville,Sharonville,39.2825,-84.4071,United States,US,USA,Ohio,,14023.0,1840001613
+Circleville,Circleville,39.6063,-82.9334,United States,US,USA,Ohio,,14017.0,1840007317
+Lyndhurst,Lyndhurst,41.5172,-81.4922,United States,US,USA,Ohio,,13952.0,1840000610
+East Cleveland,East Cleveland,41.5317,-81.5794,United States,US,USA,Ohio,,13926.0,1840000599
+New Franklin,New Franklin,40.9525,-81.5838,United States,US,USA,Ohio,,13874.0,1840008255
+Beachwood,Beachwood,41.4759,-81.503,United States,US,USA,Ohio,,13846.0,1840003395
+Maumee,Maumee,41.5696,-83.6636,United States,US,USA,Ohio,,13824.0,1840000569
+Bedford,Bedford,38.8602,-86.4895,United States,US,USA,Indiana,,13802.0,1840007426
+Bellefontaine,Bellefontaine,40.3627,-83.763,United States,US,USA,Ohio,,13785.0,1840007233
+Warrensville Heights,Warrensville Heights,41.4363,-81.5222,United States,US,USA,Ohio,,13659.0,1840003419
+University Heights,University Heights,41.4948,-81.535,United States,US,USA,Ohio,,13649.0,1840003416
+Speedway,Speedway,39.7937,-86.2481,United States,US,USA,Indiana,,13646.0,1840010574
+Brecksville,Brecksville,41.3079,-81.6192,United States,US,USA,Ohio,,13618.0,1840000590
+Bardstown,Bardstown,37.8175,-85.455,United States,US,USA,Kentucky,,13564.0,1840013219
+Bexley,Bexley,39.965,-82.9343,United States,US,USA,Ohio,,13537.0,1840003759
+Bridgetown,Bridgetown,39.1552,-84.6359,United States,US,USA,Ohio,,13526.0,1840034100
+Englewood,Englewood,39.8643,-84.307,United States,US,USA,Ohio,,13433.0,1840008435
+Connersville,Connersville,39.6582,-85.141,United States,US,USA,Indiana,,13395.0,1840007318
+Marietta,Marietta,39.4241,-81.4465,United States,US,USA,Ohio,,13366.0,1840001545
+Lake Station,Lake Station,41.5729,-87.2599,United States,US,USA,Indiana,,13352.0,1840008195
+Blue Ash,Blue Ash,39.248,-84.3827,United States,US,USA,Ohio,,13325.0,1840003812
+Auburn,Auburn,41.3666,-85.0559,United States,US,USA,Indiana,,13316.0,1840007100
+Clayton,Clayton,39.8689,-84.3292,United States,US,USA,Ohio,,13292.0,1840010584
+Loveland,Loveland,39.2677,-84.2733,United States,US,USA,Ohio,,13247.0,1840003809
+Trenton,Trenton,39.4792,-84.462,United States,US,USA,Ohio,,13133.0,1840003805
+Dover,Dover,40.5304,-81.4806,United States,US,USA,Ohio,,13118.0,1840007217
+Harrison,Harrison,39.2584,-84.7868,United States,US,USA,Ohio,,13086.0,1840007381
+West Carrollton,West Carrollton,39.6701,-84.2542,United States,US,USA,Ohio,,13060.0,1840059955
+Bedford,Bedford,41.3919,-81.536,United States,US,USA,Ohio,,13043.0,1840003396
+Fostoria,Fostoria,41.16,-83.4121,United States,US,USA,Ohio,,12904.0,1840000820
+Finneytown,Finneytown,39.2159,-84.5144,United States,US,USA,Ohio,,12870.0,1840034109
+Greenville,Greenville,40.1043,-84.6209,United States,US,USA,Ohio,,12768.0,1840008366
+Amherst,Amherst,41.4022,-82.2303,United States,US,USA,Ohio,,12740.0,1840000640
+Wilmington,Wilmington,39.4362,-83.8141,United States,US,USA,Ohio,,12669.0,1840010630
+Wickliffe,Wickliffe,41.6072,-81.469,United States,US,USA,Ohio,,12661.0,1840000546
+Amelia,Amelia,39.0269,-84.2218,United States,US,USA,Ohio,,12388.0,1840010681
+Conneaut,Conneaut,41.9275,-80.5685,United States,US,USA,Ohio,,12372.0,1840003337
+Madison,Madison,38.7581,-85.3973,United States,US,USA,Indiana,,12301.0,1840009728
+Macedonia,Macedonia,41.3147,-81.4989,United States,US,USA,Ohio,,12126.0,1840000797
+Washington,Washington,38.6586,-87.1591,United States,US,USA,Indiana,,12076.0,1840010735
+Fort Campbell North,Fort Campbell North,36.6631,-87.4764,United States,US,USA,Kentucky,,12014.0,1840073832
+Monfort Heights,Monfort Heights,39.1823,-84.6075,United States,US,USA,Ohio,,12012.0,1840034325
+Somerset,Somerset,37.0834,-84.6109,United States,US,USA,Kentucky,,11998.0,1840015257
+Martinsville,Martinsville,39.4149,-86.4316,United States,US,USA,Indiana,,11916.0,1840008461
+Salem,Salem,40.9049,-80.8492,United States,US,USA,Ohio,,11861.0,1840009374
+Mack,Mack,39.1492,-84.6794,United States,US,USA,Ohio,,11764.0,1840034079
+Lawrenceburg,Lawrenceburg,38.0332,-84.9031,United States,US,USA,Kentucky,,11749.0,1840014321
+Seven Hills,Seven Hills,41.3803,-81.6736,United States,US,USA,Ohio,,11681.0,1840003411
+Franklin,Franklin,39.5538,-84.2952,United States,US,USA,Ohio,,11672.0,1840008466
+Dent,Dent,39.1915,-84.6601,United States,US,USA,Ohio,,11666.0,1840005880
+Norton,Norton,41.0294,-81.6461,United States,US,USA,Ohio,,11643.0,1840000800
+Bucyrus,Bucyrus,40.8054,-82.9719,United States,US,USA,Ohio,,11643.0,1840007170
+Yorktown,Yorktown,40.183,-85.5123,United States,US,USA,Indiana,,11560.0,1840010463
+Campbellsville,Campbellsville,37.3445,-85.3511,United States,US,USA,Kentucky,,11434.0,1840013242
+Greensburg,Greensburg,39.3518,-85.5028,United States,US,USA,Indiana,,11431.0,1840014567
+Ravenna,Ravenna,41.1612,-81.2422,United States,US,USA,Ohio,,11323.0,1840009317
+Brooklyn,Brooklyn,41.4349,-81.7497,United States,US,USA,Ohio,,11259.0,1840000592
+Northbrook,Northbrook,39.2467,-84.5796,United States,US,USA,Ohio,,11199.0,1840034123
+Urbana,Urbana,40.1085,-83.7541,United States,US,USA,Ohio,,11156.0,1840010488
+Coshocton,Coshocton,40.2618,-81.848,United States,US,USA,Ohio,,11054.0,1840003692
+Lyndon,Lyndon,38.2645,-85.5891,United States,US,USA,Kentucky,,10997.0,1840015191
+Springdale,Springdale,39.2909,-84.476,United States,US,USA,Ohio,,10991.0,1840001615
+Celina,Celina,40.555,-84.5626,United States,US,USA,Ohio,,10974.0,1840007210
+Bedford Heights,Bedford Heights,41.4041,-81.5053,United States,US,USA,Ohio,,10933.0,1840003397
+Peru,Peru,40.7593,-86.0756,United States,US,USA,Indiana,,10862.0,1840009363
+Danville,Danville,39.7584,-86.5019,United States,US,USA,Indiana,,10842.0,1840009539
+Van Wert,Van Wert,40.8651,-84.5879,United States,US,USA,Ohio,,10828.0,1840010350
+Montgomery,Montgomery,39.2496,-84.3458,United States,US,USA,Ohio,,10816.0,1840008521
+Forestville,Forestville,39.0711,-84.3389,United States,US,USA,Ohio,,10724.0,1840034110
+Lowell,Lowell,41.2917,-87.4195,United States,US,USA,Indiana,,10723.0,1840009260
+Richmond Heights,Richmond Heights,41.5589,-81.5029,United States,US,USA,Ohio,,10714.0,1840003409
+Ironton,Ironton,38.5323,-82.6779,United States,US,USA,Ohio,,10597.0,1840008607
+Shiloh,Shiloh,39.8159,-84.2317,United States,US,USA,Ohio,,10539.0,1840153071
+Reading,Reading,39.2242,-84.4333,United States,US,USA,Ohio,,10527.0,1840001611
+New Albany,New Albany,40.0809,-82.7848,United States,US,USA,Ohio,,10516.0,1840012407
+Heath,Heath,40.0241,-82.4413,United States,US,USA,Ohio,,10492.0,1840001418
+Bluffton,Bluffton,40.7424,-85.173,United States,US,USA,Indiana,,10461.0,1840007178
+Vermilion,Vermilion,41.4103,-82.3214,United States,US,USA,Ohio,,10459.0,1840010234
+Wabash,Wabash,40.8034,-85.8301,United States,US,USA,Indiana,,10417.0,1840010335
+Galion,Galion,40.7385,-82.7792,United States,US,USA,Ohio,,10378.0,1840002752
+Plymouth,Plymouth,41.3483,-86.3187,United States,US,USA,Indiana,,10369.0,1840014170
+Alexandria,Alexandria,38.9621,-84.3859,United States,US,USA,Kentucky,,10322.0,1840013162
+London,London,39.8935,-83.4375,United States,US,USA,Ohio,,10316.0,1840000674
+Versailles,Versailles,38.0486,-84.7258,United States,US,USA,Kentucky,,10297.0,1840015212
+Tipp City,Tipp City,39.9644,-84.1866,United States,US,USA,Ohio,,10266.0,1840010507
+Whitestown,Whitestown,39.9706,-86.3612,United States,US,USA,Indiana,,10253.0,1840010514
+Kendallville,Kendallville,41.4441,-85.2578,United States,US,USA,Indiana,,10176.0,1840008208
+Paris,Paris,38.2016,-84.2718,United States,US,USA,Kentucky,,10143.0,1840014315
+Franklin,Franklin,36.7177,-86.5595,United States,US,USA,Kentucky,,10141.0,1840013290
+Cambridge,Cambridge,40.0221,-81.5869,United States,US,USA,Ohio,,10087.0,1840007259
+La Grange,La Grange,38.3987,-85.375,United States,US,USA,Kentucky,,10073.0,1840014287
+Struthers,Struthers,41.051,-80.592,United States,US,USA,Ohio,,10061.0,1840003562
+Oakbrook,Oakbrook,38.9996,-84.6797,United States,US,USA,Kentucky,,10045.0,1840030814
+Francisville,Francisville,39.1068,-84.7277,United States,US,USA,Kentucky,,10044.0,1840026679
+Mayfield,Mayfield,36.7371,-88.6447,United States,US,USA,Kentucky,,10011.0,1840015268
+Willoughby Hills,Willoughby Hills,41.5873,-81.4333,United States,US,USA,Ohio,,9972.0,1840000548
+East Liverpool,East Liverpool,40.6333,-80.5677,United States,US,USA,Ohio,,9969.0,1840002783
+Sellersburg,Sellersburg,38.4028,-85.7706,United States,US,USA,Indiana,,9948.0,1840010786
+Beckett Ridge,Beckett Ridge,39.3448,-84.438,United States,US,USA,Ohio,,9880.0,1840034377
+Wapakoneta,Wapakoneta,40.5664,-84.1916,United States,US,USA,Ohio,,9879.0,1840010391
+Greencastle,Greencastle,39.6432,-86.8418,United States,US,USA,Indiana,,9865.0,1840008439
+Decatur,Decatur,40.8286,-84.9277,United States,US,USA,Indiana,,9718.0,1840007177
+North College Hill,North College Hill,39.2175,-84.552,United States,US,USA,Ohio,,9602.0,1840001609
+Middletown,Middletown,38.241,-85.5214,United States,US,USA,Kentucky,,9594.0,1840014295
+Girard,Girard,41.1665,-80.6963,United States,US,USA,Ohio,,9565.0,1840008239
+Lincoln Village,Lincoln Village,39.9532,-83.1314,United States,US,USA,Ohio,,9553.0,1840034388
+Mooresville,Mooresville,39.6022,-86.3681,United States,US,USA,Indiana,,9525.0,1840009668
+Bargersville,Bargersville,39.5412,-86.2004,United States,US,USA,Indiana,,9520.0,1840009569
+Louisville,Louisville,40.837,-81.2643,United States,US,USA,Ohio,,9500.0,1840000964
+Oakwood,Oakwood,39.7202,-84.1734,United States,US,USA,Ohio,,9496.0,1840003785
+Columbia City,Columbia City,41.1612,-85.4855,United States,US,USA,Indiana,,9478.0,1840007140
+Madeira,Madeira,39.1856,-84.3734,United States,US,USA,Ohio,,9426.0,1840001605
+Middlesborough,Middlesborough,36.6127,-83.7227,United States,US,USA,Kentucky,,9383.0,1840036079
+Canal Winchester,Canal Winchester,39.8437,-82.8126,United States,US,USA,Ohio,,9357.0,1840010524
+Angola,Angola,41.6433,-85.005,United States,US,USA,Indiana,,9317.0,1840007084
+Elsmere,Elsmere,38.9948,-84.6017,United States,US,USA,Kentucky,,9126.0,1840013167
+McCordsville,McCordsville,39.8966,-85.9208,United States,US,USA,Indiana,,9098.0,1840009526
+Huntertown,Huntertown,41.2185,-85.1705,United States,US,USA,Indiana,,9090.0,1840010297
+Harrodsburg,Harrodsburg,37.7654,-84.8474,United States,US,USA,Kentucky,,9057.0,1840013222
+Blacklick Estates,Blacklick Estates,39.9049,-82.8655,United States,US,USA,Ohio,,9010.0,1840034379
+Sheffield Lake,Sheffield Lake,41.4883,-82.0979,United States,US,USA,Ohio,,8958.0,1840000647
+Napoleon,Napoleon,41.3977,-84.1244,United States,US,USA,Ohio,,8888.0,1840008242
+Maysville,Maysville,38.6455,-83.7911,United States,US,USA,Kentucky,,8831.0,1840015180
+Bainbridge,Bainbridge,41.3855,-81.3478,United States,US,USA,Ohio,,8808.0,1840152715
+Perry Heights,Perry Heights,40.7977,-81.468,United States,US,USA,Ohio,,8762.0,1840005201
+Wyoming,Wyoming,39.2297,-84.4816,United States,US,USA,Ohio,,8720.0,1840001619
+Cheviot,Cheviot,39.1577,-84.6139,United States,US,USA,Ohio,,8682.0,1840003813
+Hillview,Hillview,38.0562,-85.6847,United States,US,USA,Kentucky,,8681.0,1840014325
+Olmsted Falls,Olmsted Falls,41.3657,-81.9038,United States,US,USA,Ohio,,8670.0,1840003404
+Bryan,Bryan,41.4706,-84.5483,United States,US,USA,Ohio,,8670.0,1840000573
+Fort Mitchell,Fort Mitchell,39.046,-84.5562,United States,US,USA,Kentucky,,8667.0,1840013170
+Fort Knox,Fort Knox,37.8915,-85.9636,United States,US,USA,Kentucky,,8655.0,1840073833
+Highland Heights,Highland Heights,41.5518,-81.4691,United States,US,USA,Ohio,,8652.0,1840000605
+Corbin,Corbin,36.9323,-84.1006,United States,US,USA,Kentucky,,8611.0,1840014405
+Remote,Remote,,,United States,US,USA,Virtual,,,REMOTE001
+Virtual,Virtual,,,United States,US,USA,Virtual,,,REMOTE002
+Work from Home,Work from Home,,,United States,US,USA,Virtual,,,REMOTE003
+Telework,Telework,,,United States,US,USA,Virtual,,,REMOTE004
+Hybrid,Hybrid,,,United States,US,USA,Virtual,,,REMOTE005
