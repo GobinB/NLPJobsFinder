@@ -2,3 +2,9 @@
 node_modules/
 ./node_modules/
 
+model/.ipynb_checkpoints/
+model/ner_model1/
+model/logs/
+model/results/
+
+Data/.ipynb_checkpoints/
